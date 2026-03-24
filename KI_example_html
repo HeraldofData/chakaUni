@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KI Explainer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #f0ede8;
+    --surface:  #e8e4de;
+    --border:   #d8d3cb;
+    --text:     #1a1917;
+    --muted:    #6b6760;
+    --accent:   #2b5cff;
+    --radius:   14px;
+    --font:     'DM Sans', sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    padding: 48px 32px 64px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  section { margin-bottom: 56px; }
+
+  /* ── Example cards ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px 24px;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    border-color: #bbb6ae;
+  }
+
+  .card.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(43,92,255,.15);
+  }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+    line-height: 1;
+  }
+
+  .card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Detail box ── */
+  .detail-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    display: none;
+    animation: fadeSlide .22s ease;
+  }
+
+  .detail-box.visible { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Steps ── */
+  .steps {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    overflow: hidden;
+  }
+
+  .step {
+    padding: 32px 20px 28px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+    cursor: pointer;
+    transition: background .15s;
+  }
+
+  .step:last-child { border-right: none; }
+  .step:hover { background: rgba(43,92,255,.04); }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    transition: transform .2s ease;
+  }
+
+  .step:hover .step-num { transform: scale(1.1); }
+
+  .step h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .step p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Was KI ist / nicht ist ── */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 520px) { .comparison { grid-template-columns: 1fr; } }
+
+  .comp-box {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 24px 20px;
+    background: var(--surface);
+  }
+
+  .comp-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 16px;
+  }
+
+  .comp-box.yes h4 { color: #1a7a4a; }
+  .comp-box.no  h4 { color: #b93232; }
+
+  .comp-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .comp-list li {
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .comp-list li::before {
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .comp-box.yes .comp-list li::before { content: "✓"; color: #1a7a4a; font-weight: 700; }
+  .comp-box.no  .comp-list li::before { content: "✗"; color: #b93232; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ── SECTION 1 ── -->
+<section>
+  <p class="section-label">Du kennst KI bereits — Klick ein Beispiel</p>
+  <div class="cards">
+    <div class="card" data-detail="spam">
+      <span class="card-icon">📧</span>
+      <h3>Spam-Filter</h3>
+      <p>Erkennt unerwünschte Mails automatisch</p>
+    </div>
+    <div class="card" data-detail="spotify">
+      <span class="card-icon">🎵</span>
+      <h3>Spotify / Netflix</h3>
+      <p>Schlägt vor, was zu dir passt</p>
+    </div>
+    <div class="card" data-detail="copilot">
+      <span class="card-icon">💬</span>
+      <h3>Copilot &amp; Rovo</h3>
+      <p>Versteht deine Fragen und antwortet</p>
+    </div>
+  </div>
+
+  <div class="detail-box" id="detail-spam">
+    <strong>Spam-Filter</strong> sind eines der ältesten KI-Anwendungsbeispiele. Das System wurde mit Millionen echter Spam-Mails trainiert und lernt dabei Muster – verdächtige Absender, bestimmte Wörter, seltsame Links. Heute filtert Gmail täglich über 100 Millionen Spam-Mails automatisch heraus.
+  </div>
+  <div class="detail-box" id="detail-spotify">
+    <strong>Empfehlungssysteme</strong> analysieren, was du hörst oder schaust, und vergleichen dein Verhalten mit Millionen anderer Nutzer. KI findet dabei Gemeinsamkeiten, die Menschen nie bewusst auffallen würden – und schlägt so den nächsten Song vor, den du noch nicht kennst, aber sofort liebst.
+  </div>
+  <div class="detail-box" id="detail-copilot">
+    <strong>Sprachmodelle</strong> wie Copilot oder Rovo wurden auf riesigen Textmengen trainiert. Sie lernen, wie Sprache funktioniert, welche Antworten sinnvoll sind und wie Kontexte zusammenhängen. Heute helfen sie beim Zusammenfassen, Schreiben und Recherchieren – direkt in deinen Arbeitstools.
+  </div>
+</section>
+
+<!-- ── SECTION 2 ── -->
+<section>
+  <p class="section-label">Wie KI lernt — in 4 Schritten</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Daten</h4>
+      <p>Tausende Beispiele werden gesammelt</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Muster</h4>
+      <p>Die KI findet Gemeinsamkeiten</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Lernen</h4>
+      <p>Sie verfeinert ihr Modell</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Vorhersage</h4>
+      <p>Neue Situationen werden erkannt</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 3 ── -->
+<section>
+  <p class="section-label">Was KI ist — und was nicht</p>
+  <div class="comparison">
+    <div class="comp-box yes">
+      <h4>KI kann …</h4>
+      <ul class="comp-list">
+        <li>Muster in großen Datenmengen erkennen</li>
+        <li>Texte zusammenfassen &amp; generieren</li>
+        <li>Wiederholende Aufgaben automatisieren</li>
+        <li>Schnell relevante Informationen finden</li>
+      </ul>
+    </div>
+    <div class="comp-box no">
+      <h4>KI kann nicht …</h4>
+      <ul class="comp-list">
+        <li>Echtes Verstehen oder Bewusstsein zeigen</li>
+        <li>Immer korrekte Fakten garantieren</li>
+        <li>Verantwortung übernehmen</li>
+        <li>Kreativität oder Intuition ersetzen</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Card click → toggle detail box
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const key    = card.dataset.detail;
+      const box    = document.getElementById('detail-' + key);
+      const isOpen = box.classList.contains('visible');
+
+      // close all
+      document.querySelectorAll('.detail-box').forEach(b => b.classList.remove('visible'));
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+
+      if (!isOpen) {
+        box.classList.add('visible');
+        card.classList.add('active');
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
