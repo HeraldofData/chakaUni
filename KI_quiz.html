@@ -342,9 +342,9 @@
 <body>
 <div class="container">
   <div class="header">
-    <div class="tag">freenet AG · KI & Digitale Assistenten</div>
+    <div class="tag">freenet · KI & Digitale Assistenten · IT Portfolio </div>
     <h1>Was weißt du über KI?</h1>
-    <p>Teste dein Wissen zu Künstlicher Intelligenz & Copilot</p>
+    <p>Teste dein Wissen zu Künstlicher Intelligenz </p>
   </div>
 
   <div id="quizArea">
@@ -379,10 +379,10 @@
 <script>
 const QUESTION_POOL = [
   {
-    q: "Was bedeutet KI / Künstliche Intelligenz?",
+    q: "Was bedeutet KI?",
     options: ["Ein Roboter, der eigenständig laufen kann","Systeme, die menschliche Intelligenz wie Lernen und Problemlösen simulieren","Ein sehr schneller Computer ohne besondere Fähigkeiten","Eine neue Programmiersprache von Google"],
     correct: 1,
-    explanation: "Künstliche Intelligenz bezeichnet Computersysteme, die Aufgaben ausführen können, die normalerweise menschliche Intelligenz erfordern – z. B. Sprache verstehen, lernen, planen und Probleme lösen."
+    explanation: "KI - Künstliche Intelligenz bezeichnet Computersysteme, die Aufgaben ausführen können, die normalerweise menschliche Intelligenz erfordern – z. B. Sprache verstehen, lernen, planen und Probleme lösen."
   },
   {
     q: "Was ist der Microsoft Copilot Facilitator hauptsächlich?",
@@ -391,10 +391,15 @@ const QUESTION_POOL = [
     explanation: "Der Copilot Facilitator ist ein KI-gestützter Agent in Microsoft Teams. Er erstellt automatisch Besprechungsnotizen, erfasst Aufgaben, generiert Zusammenfassungen und plant Follow-ups – sichtbar für alle Teilnehmer."
   },
   {
-    q: "Was unterscheidet den Copilot Facilitator vom normalen Copilot in Teams?",
-    options: ["Er ist kostenlos für alle Nutzer verfügbar","Er kann keine Aufgaben erstellen","Seine Antworten sind für alle Meeting-Teilnehmer im Chat sichtbar","Er funktioniert nur auf dem Smartphone"],
-    correct: 2,
-    explanation: "Im Gegensatz zum normalen Copilot in Teams – dessen Antworten nur für den einzelnen Nutzer sichtbar sind – verhält sich der Facilitator wie ein Assistent im Meeting: alle Teilnehmer können seine Beiträge im Chat sehen."
+    q: "Welche der folgenden Elemente gehören zur Grundstruktur eines guten Prompts?",
+    options: [
+      "Schriftart, Farbe, Größe und Seitenrand",
+      "Rolle, Aufgabe, Verhalten/Einschränkungen, Ausgabeformat und Beispiele (Few-Shot)",
+      "Datum, Uhrzeit, Ort und Teilnehmerliste",
+      "CPU-Leistung, RAM, Speicher und Netzwerkgeschwindigkeit"
+    ],
+    correct: 1,
+    explanation: "Ein guter Prompt besteht aus 5 Elementen: (1) Rolle & Kontext definieren, (2) Aufgabe klar beschreiben, (3) Verhalten & Einschränkungen festlegen, (4) Ausgabeformat vorgeben und (5) Beispiele geben (Few-Shot). Das sorgt für präzise, zuverlässige KI-Antworten."
   },
   {
     q: "Was ist maschinelles Lernen (Machine Learning)?",
@@ -403,10 +408,15 @@ const QUESTION_POOL = [
     explanation: "Maschinelles Lernen ist ein Teilbereich der KI. Statt feste Regeln zu programmieren, lernt das System aus Beispieldaten und erkennt Muster, um eigenständig Vorhersagen oder Entscheidungen zu treffen."
   },
   {
-    q: "Welche Lizenz wird benötigt, um den Copilot Facilitator zu aktivieren?",
-    options: ["Eine kostenlose Microsoft-Konto-Lizenz","Eine Microsoft 365 Copilot-Lizenz","Eine Windows 11 Pro-Lizenz","Keine – er ist standardmäßig aktiviert"],
+    q: "Was gilt beim Umgang mit KI-Systemen im Unternehmen?",
+    options: [
+      "Jede KI-Anwendung darf frei genutzt werden, solange sie kostenlos ist",
+      "Nur zugelassene KI-Systeme dürfen genutzt werden – vertrauliche Informationen sind zu schützen und eine unrechtmäßige Nutzung ist verboten",
+      "KI darf nur von der IT-Abteilung bedient werden",
+      "Vertrauliche Daten dürfen problemlos in externe KI-Tools eingegeben werden"
+    ],
     correct: 1,
-    explanation: "Für die Aktivierung des Copilot Facilitators ist eine Microsoft 365 Copilot-Lizenz erforderlich. Andere Meeting-Teilnehmer können die Echtzeit-Updates jedoch auch ohne eigene Lizenz einsehen."
+    explanation: "Im Unternehmen gilt: Nur freigegebene KI-Systeme verwenden, keine vertraulichen oder personenbezogenen Daten in externe Tools eingeben und KI niemals für unrechtmäßige Zwecke nutzen. KI ist ein Werkzeug – die Verantwortung bleibt beim Menschen."
   },
   {
     q: "Was ist ein Large Language Model (LLM)?",
@@ -421,7 +431,7 @@ const QUESTION_POOL = [
     explanation: "Der Facilitator verwaltet aktiv die Zeit: Er startet einen Countdown-Timer für alle Meeting-Teilnehmer und gibt eine Benachrichtigung aus, wenn die geplante Besprechungszeit überschritten wird."
   },
   {
-    q: "Wofür steht das Kürzel 'KI' im Deutschen?",
+    q: "Wofür steht das Kürzel 'KI'?",
     options: ["Kreative Integration","Künstliche Intelligenz","Komplexe Informatik","Kontrollierte Information"],
     correct: 1,
     explanation: "KI steht für Künstliche Intelligenz – auf Englisch Artificial Intelligence (AI). Es beschreibt Computersysteme, die intelligentes Verhalten imitieren können."
@@ -433,10 +443,15 @@ const QUESTION_POOL = [
     explanation: "Ein Prompt ist die Eingabe oder Anweisung, die man einer KI wie ChatGPT oder Claude gibt. Je klarer und präziser der Prompt, desto besser die Antwort der KI."
   },
   {
-    q: "Wozu wird Microsoft Loop im Zusammenhang mit dem Copilot Facilitator verwendet?",
-    options: ["Zum Versenden von E-Mails","Zum Speichern der Besprechungsminuten in Echtzeit","Zum Erstellen von Präsentationen","Zum Aufzeichnen von Videos"],
-    correct: 1,
-    explanation: "Besprechungsminuten werden vom Copilot Facilitator in Echtzeit erfasst und in Microsoft Loop gespeichert – so sind alle Notizen sofort für das Team zugänglich und bearbeitbar."
+    q: "Was kann eine KI wie ChatGPT oder Claude NICHT zuverlässig leisten?",
+    options: [
+      "Texte zusammenfassen und übersetzen",
+      "Code schreiben und erklären",
+      "Eigenständig rechtlich verbindliche Entscheidungen treffen und dafür haften",
+      "Ideen für Präsentationen vorschlagen"
+    ],
+    correct: 2,
+    explanation: "KI kann viele Aufgaben unterstützen – Texte schreiben, Code generieren, Ideen liefern. Was sie nicht kann: rechtlich verbindlich entscheiden oder Verantwortung übernehmen. KI kann auch halluzinieren (falsche Infos liefern) und braucht immer menschliche Kontrolle."
   },
   {
     q: "Was ist 'Generative KI'?",
@@ -463,10 +478,15 @@ const QUESTION_POOL = [
     explanation: "Schwache KI (auch 'Narrow AI') kann nur bestimmte Aufgaben erledigen – z. B. Schach spielen oder Sprache übersetzen. Starke KI (auch 'AGI') wäre in der Lage, jede intellektuelle Aufgabe wie ein Mensch zu lösen – sie existiert bislang nicht."
   },
   {
-    q: "Welches Unternehmen hat Claude entwickelt?",
-    options: ["Google","OpenAI","Anthropic","Microsoft"],
-    correct: 2,
-    explanation: "Claude ist ein KI-Assistent, der von Anthropic entwickelt wurde – einem KI-Sicherheitsunternehmen, das 2021 gegründet wurde. Claude ist auf hilfreiche, harmlose und ehrliche KI ausgerichtet."
+    q: "Was ist Rovo und was kann sie?",
+    options: [
+      "Ein KI-gestützter Assistent von Atlassian, der Wissen aus Tools wie Jira, Confluence und Google Drive durchsucht, zusammenfasst und eigenständige Aufgaben übernehmen kann",
+      "Ein neues Videokonferenz-Tool von Atlassian als Konkurrenz zu Teams",
+      "Ein automatisches Backup-System für Atlassian-Daten",
+      "Ein Projektmanagement-Tool ohne KI-Funktionen"
+    ],
+    correct: 0,
+    explanation: "Atlassian Rovo ist ein KI-Assistent, der Unternehmenswissen aus verbundenen Tools (Jira, Confluence, Google Drive, etc.) durchsucht und nutzbar macht. Rovo kann Fragen beantworten, Inhalte zusammenfassen und als KI-Agent eigenständig Aufgaben in Atlassian-Tools ausführen."
   },
   {
     q: "Was bedeutet 'KI-Ethik'?",
