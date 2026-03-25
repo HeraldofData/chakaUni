@@ -1,713 +1,382 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rovo & Copilot</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --c0: #2A2A2A;
-            --c1: #0057B8;
-            --c2: #007A52;
-            --c3: #B05800;
-            --c4: #5B3FB5;
-            --bg: #F5F4F1;
-            --surface: #FFFFFF;
-            --border: #E0DED8;
-            --text: #1A1A1A;
-            --muted: #6B6860;
-            --mono: 'IBM Plex Mono', monospace;
-            --sans: 'IBM Plex Sans', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rovo & Copilot – Übersicht</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F4F1;
+    --surface: #FFFFFF;
+    --border: #E0DED8;
+    --text: #1A1A1A;
+    --muted: #6B6860;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --blue-bg: #EBF3FF; --blue-text: #0C447C; --blue-border: #B8D4F7;
+    --teal-bg: #E5F5EF; --teal-text: #005E3C; --teal-border: #9FD9C0;
+    --amber-bg: #FFF1E3; --amber-text: #8A4500; --amber-border: #F5C490;
+    --purple-bg: #F0ECFF; --purple-text: #4A32A0; --purple-border: #C5B8F5;
+    --gray-bg: #F0EFEB; --gray-text: #4A4844; --gray-border: #D3D1CB;
+    --red-bg: #FDECEA; --red-text: #8A1C1C; --red-border: #F5BFBB;
+    --green-bg: #E5F5EF; --green-text: #005E3C; --green-border: #9FD9C0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; padding: 1.5rem; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+  h1 { font-size: 22px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--muted); margin-bottom: 2rem; }
 
-        body {
-            font-family: var(--sans);
-            background: var(--bg);
-            color: var(--text);
-            font-size: 14px;
-            line-height: 1.6;
-            padding: 0;
-        }
+  /* ── CAPABILITIES TABLE ── */
+  .cap-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; font-size: 13px; }
+  .cap-table thead tr { border-bottom: 2px solid var(--text); }
+  .cap-table th { font-weight: 600; padding: 8px 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .cap-table th:first-child { width: 30%; }
+  .cap-table tbody tr { border-bottom: 1px solid var(--border); }
+  .cap-table tbody tr:hover { background: var(--surface); }
+  .cap-table td { padding: 9px 12px; vertical-align: top; }
+  .cap-table td:first-child { font-weight: 500; color: var(--text); }
+  .cap-table td:not(:first-child) { color: var(--muted); font-size: 12.5px; }
 
-        .page {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem 4rem;
-        }
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: .12em; color: var(--muted); margin-bottom: .8rem;
+    padding-bottom: 5px; border-bottom: 1px solid var(--border);
+  }
 
-        /* Header */
-        .header {
-            border-left: 3px solid var(--text);
-            padding-left: 1rem;
-            margin-bottom: 2.5rem;
-        }
-        .header .eyebrow {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 6px;
-        }
-        .header h1 {
-            font-size: 26px;
-            font-weight: 600;
-            letter-spacing: -.02em;
-            line-height: 1.2;
-        }
-        .header p {
-            margin-top: 8px;
-            color: var(--muted);
-            font-size: 13px;
-            max-width: 560px;
-        }
+  /* ── FEATURE CARDS (accordion) ── */
+  .cards { margin-bottom: 2rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px; overflow: hidden; transition: box-shadow .15s; }
+  .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .card-header { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; cursor: pointer; user-select: none; }
+  .card-icon { display: flex; align-items: center; justify-content: center; height: 56px; font-size: 18px; border-right: 1px solid var(--border); }
+  .card-title { padding: .7rem 1rem; }
+  .card-title h3 { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .card-title p { font-size: 12px; color: var(--muted); }
+  .card-tags { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+  .chev { padding: 1rem; font-size: 10px; color: var(--muted); transition: transform .2s; }
+  .card.open .chev { transform: rotate(180deg); }
+  .card-body { display: none; border-top: 1px solid var(--border); padding: 1rem 1.2rem; background: #FAFAF8; }
+  .card.open .card-body { display: block; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .d-card { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: .9rem 1rem; }
+  .d-card .d-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 7px; }
+  .d-card ul { list-style: none; }
+  .d-card ul li { font-size: 12.5px; color: var(--text); line-height: 1.65; padding-left: 12px; position: relative; }
+  .d-card ul li::before { content: "→"; position: absolute; left: 0; color: var(--muted); font-size: 10px; top: 3px; }
+  .note { margin-top: .8rem; font-size: 12px; padding: .7rem .9rem; border-left: 3px solid var(--border); background: var(--surface); border-radius: 0 5px 5px 0; color: var(--muted); }
 
-        /* Intro box */
-        .intro-box {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 1.2rem 1.4rem;
-            margin-bottom: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-        }
-        .intro-item .label {
-            font-family: var(--mono);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--muted);
-            margin-bottom: 4px;
-        }
-        .intro-item p {
-            font-size: 13px;
-            color: var(--text);
-            line-height: 1.5;
-        }
+  /* pill tags */
+  .tag { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; border: 1px solid; letter-spacing: .02em; white-space: nowrap; }
+  .tag.blue   { background: var(--blue-bg);   color: var(--blue-text);   border-color: var(--blue-border); }
+  .tag.teal   { background: var(--teal-bg);   color: var(--teal-text);   border-color: var(--teal-border); }
+  .tag.amber  { background: var(--amber-bg);  color: var(--amber-text);  border-color: var(--amber-border); }
+  .tag.purple { background: var(--purple-bg); color: var(--purple-text); border-color: var(--purple-border); }
+  .tag.gray   { background: var(--gray-bg);   color: var(--gray-text);   border-color: var(--gray-border); }
+  .tag.red    { background: var(--red-bg);    color: var(--red-text);    border-color: var(--red-border); }
+  .tag.green  { background: var(--green-bg);  color: var(--green-text);  border-color: var(--green-border); }
 
-        /* Section title */
-        .section-label {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 1rem;
-            padding-bottom: 6px;
-            border-bottom: 1px solid var(--border);
-        }
+  /* status pills in table */
+  .pill { font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 20px; border: 1px solid; }
+  .pill.ok   { background: var(--teal-bg);  color: var(--teal-text);  border-color: var(--teal-border); }
+  .pill.warn { background: var(--amber-bg); color: var(--amber-text); border-color: var(--amber-border); }
+  .pill.no   { background: var(--red-bg);   color: var(--red-text);   border-color: var(--red-border); }
 
-        /* Tiers */
-        .tiers { margin-bottom: 2.5rem; }
+  /* ── HIDDEN GEMS ── */
+  .gems { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 2rem; }
+  .gem { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: .9rem 1rem; }
+  .gem .gem-icon { font-size: 16px; margin-bottom: 6px; }
+  .gem h4 { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .gem p { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
-        .tier {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            margin-bottom: 6px;
-            overflow: hidden;
-            transition: box-shadow .15s;
-        }
-        .tier:hover { box-shadow: 0 2px 10px rgba(0,0,0,.07); }
+  /* ── FOOTER ── */
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); display: flex; justify-content: space-between; }
 
-        .tier-header {
-            display: grid;
-            grid-template-columns: 100px 1fr auto;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-            padding: 0;
-        }
-
-        .tier-badge {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem .8rem;
-            border-right: 1px solid var(--border);
-            min-height: 72px;
-        }
-        .tier-badge .lvl {
-            font-family: var(--mono);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            opacity: .6;
-            margin-bottom: 2px;
-        }
-        .tier-badge .num {
-            font-size: 28px;
-            font-weight: 600;
-            line-height: 1;
-        }
-
-        .tier-0 .tier-badge { background: #F0EFEB; color: var(--c0); }
-        .tier-1 .tier-badge { background: #EBF3FF; color: var(--c1); }
-        .tier-2 .tier-badge { background: #E5F5EF; color: var(--c2); }
-        .tier-3 .tier-badge { background: #FFF1E3; color: var(--c3); }
-        .tier-4 .tier-badge { background: #F0ECFF; color: var(--c4); }
-
-        .tier-info {
-            padding: .9rem 1.1rem;
-        }
-        .tier-info h3 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-        .tier-info p {
-            font-size: 12px;
-            color: var(--muted);
-            line-height: 1.4;
-        }
-
-        .tier-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-top: 6px;
-        }
-        .tag {
-            font-family: var(--mono);
-            font-size: 10px;
-            padding: 2px 7px;
-            border-radius: 3px;
-            border: 1px solid;
-            letter-spacing: .03em;
-        }
-        .tier-0 .tag { background: #F0EFEB; color: #4A4844; border-color: #D3D1CB; }
-        .tier-1 .tag { background: #EBF3FF; color: #004A9E; border-color: #B8D4F7; }
-        .tier-2 .tag { background: #E5F5EF; color: #005E3C; border-color: #9FD9C0; }
-        .tier-3 .tag { background: #FFF1E3; color: #8A4500; border-color: #F5C490; }
-        .tier-4 .tag { background: #F0ECFF; color: #4A32A0; border-color: #C5B8F5; }
-
-        .chevron {
-            padding: 1rem;
-            font-size: 10px;
-            color: var(--muted);
-            transition: transform .2s;
-        }
-
-        /* Detail panel */
-        .tier-detail {
-            display: none;
-            border-top: 1px solid var(--border);
-            padding: 1.2rem 1.4rem;
-            background: #FAFAF8;
-        }
-        .tier-detail.open { display: block; }
-        .tier.expanded .chevron { transform: rotate(180deg); }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .d-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            padding: 1rem 1.1rem;
-        }
-        .d-card .d-label {
-            font-family: var(--mono);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--muted);
-            margin-bottom: 8px;
-        }
-        .d-card ul {
-            list-style: none;
-            padding: 0;
-        }
-        .d-card ul li {
-            font-size: 12.5px;
-            color: var(--text);
-            line-height: 1.6;
-            padding-left: 12px;
-            position: relative;
-        }
-        .d-card ul li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--muted);
-            font-size: 10px;
-            top: 2px;
-        }
-
-        .expectation {
-            font-size: 12.5px;
-            padding: .8rem 1rem;
-            border-radius: 5px;
-            border-left: 3px solid;
-            background: var(--surface);
-        }
-        .expectation .e-label {
-            font-family: var(--mono);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            margin-bottom: 4px;
-        }
-        .tier-0 .expectation { border-color: var(--c0); }
-        .tier-0 .expectation .e-label { color: var(--c0); }
-        .tier-1 .expectation { border-color: var(--c1); }
-        .tier-1 .expectation .e-label { color: var(--c1); }
-        .tier-2 .expectation { border-color: var(--c2); }
-        .tier-2 .expectation .e-label { color: var(--c2); }
-        .tier-3 .expectation { border-color: var(--c3); }
-        .tier-3 .expectation .e-label { color: var(--c3); }
-        .tier-4 .expectation { border-color: var(--c4); }
-        .tier-4 .expectation .e-label { color: var(--c4); }
-
-        /* Two-column section */
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .info-block {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 1.2rem 1.4rem;
-        }
-        .info-block h4 {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: .8rem;
-        }
-        .info-block ul {
-            list-style: none;
-            padding: 0;
-        }
-        .info-block ul li {
-            font-size: 12.5px;
-            color: var(--muted);
-            padding: 5px 0;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .info-block ul li:last-child { border-bottom: none; }
-        .info-block ul li span.pill {
-            font-family: var(--mono);
-            font-size: 10px;
-            padding: 2px 7px;
-            border-radius: 20px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: var(--muted);
-            white-space: nowrap;
-        }
-        .info-block ul li span.pill.ok { background: #E5F5EF; border-color: #9FD9C0; color: #005E3C; }
-        .info-block ul li span.pill.warn { background: #FFF1E3; border-color: #F5C490; color: #8A4500; }
-        .info-block ul li span.pill.no { background: #FDECEA; border-color: #F5BFBB; color: #8A1C1C; }
-
-        /* Process steps */
-        .steps {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 1.2rem 1.4rem;
-            margin-bottom: 2.5rem;
-        }
-        .step-row {
-            display: grid;
-            grid-template-columns: 40px 1fr;
-            gap: .8rem;
-            align-items: start;
-            padding: .8rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .step-row:last-child { border-bottom: none; }
-        .step-num {
-            font-family: var(--mono);
-            font-size: 20px;
-            font-weight: 500;
-            color: var(--border);
-            line-height: 1;
-            padding-top: 2px;
-        }
-        .step-content h4 { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
-        .step-content p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
-
-        /* Footer */
-        .footer {
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: var(--mono);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .08em;
-            color: var(--muted);
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .detail-grid, .two-col { grid-template-columns: 1fr; }
-            .intro-box { grid-template-columns: 1fr; }
-            .tier-header { grid-template-columns: 80px 1fr auto; }
-        }
-    </style>
+  @media (max-width: 580px) {
+    .two-col, .gems { grid-template-columns: 1fr; }
+    .cap-table thead th:last-child, .cap-table tbody td:last-child { display: none; }
+  }
+</style>
 </head>
 <body>
-<div class="page">
 
-    <!-- Header -->
-    <div class="header">
-        <div class="eyebrow">AI Enablement · Rovo &amp; Copilot</div>
-        <h1>AI Reifegrad</h1>
-        <p>Ein gemeinsames Framework, das zeigt was KI heute kann, was sie nicht kann – und wie wir uns als Organisation schrittweise verbessern.</p>
+<h1>Atlassian Rovo &amp; Microsoft Copilot</h1>
+<p class="subtitle">Was die Tools heute können — ehrlich, ohne Übertreibung. Klicke auf eine Karte für Details.</p>
+
+<!-- ── OVERVIEW TABLE ── -->
+<div class="section-label">Funktionsvergleich auf einen Blick</div>
+<table class="cap-table">
+  <thead>
+    <tr>
+      <th>Funktion</th>
+      <th>Atlassian Rovo</th>
+      <th>Microsoft Copilot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Enterprise Search</td><td>Jira, Confluence, Google Drive, Slack, SharePoint</td><td>M365, SharePoint, Teams, Exchange</td></tr>
+    <tr><td>Chat / Q&amp;A</td><td>Rovo Chat – kontextuell über Org-Daten</td><td>Copilot Chat – grounded in Microsoft Graph</td></tr>
+    <tr><td>Zusammenfassung</td><td>Confluence-Seiten, Meeting-Transcripts</td><td>E-Mails, Dokumente, Teams-Meetings</td></tr>
+    <tr><td>Entwürfe / Drafts</td><td>Jira-Issues, Confluence-Seiten</td><td>Word, Outlook, PowerPoint</td></tr>
+    <tr><td>Agenten (vorgefertigt)</td><td><span class="pill ok">Verfügbar</span></td><td><span class="pill ok">Verfügbar</span></td></tr>
+    <tr><td>Agenten (custom, no-code)</td><td>Rovo Studio <span class="pill ok">Verfügbar</span></td><td>Copilot Studio <span class="pill ok">Verfügbar</span></td></tr>
+    <tr><td>Developer-Integration</td><td>Rovo Dev (IDE/Terminal) <span class="pill ok">Verfügbar</span></td><td>GitHub Copilot (separat) <span class="pill warn">Add-on</span></td></tr>
+    <tr><td>Data Center Support</td><td><span class="pill no">Nur Cloud</span></td><td><span class="pill ok">Hybrid möglich</span></td></tr>
+    <tr><td>Cross-Tool Memory</td><td>Teamwork Graph <span class="pill ok">Integriert</span></td><td>Microsoft Graph <span class="pill ok">Integriert</span></td></tr>
+    <tr><td>MCP / Drittanbieter</td><td>Figma, Box, Salesforce u.a. <span class="pill ok">Verfügbar</span></td><td>Umfangreiches Connector-Ökosystem <span class="pill ok">Verfügbar</span></td></tr>
+    <tr><td>Governance</td><td>Owner/Manager Controls, Usage Insights</td><td>M365 Admin Center, vollständig</td></tr>
+    <tr><td>Datenhygiene Voraussetzung</td><td><span class="pill warn">Empfohlen</span></td><td><span class="pill warn">Pflicht vor Rollout</span></td></tr>
+  </tbody>
+</table>
+
+<!-- ── KNOWN FEATURES (accordion) ── -->
+<div class="section-label">Bekannte Funktionen — klicken für Details</div>
+<div class="cards">
+
+  <div class="card" id="c0">
+    <div class="card-header" onclick="tog('c0')">
+      <div class="card-icon">🔍</div>
+      <div class="card-title">
+        <h3>Enterprise Search</h3>
+        <p>Findet Dokumente und Daten über alle verbundenen Tools</p>
+        <div class="card-tags"><span class="tag blue">Rovo</span><span class="tag teal">Copilot</span></div>
+      </div>
+      <div class="chev">▼</div>
     </div>
-
-    <!-- Intro -->
-    <div class="intro-box">
-        <div class="intro-item">
-            <div class="label">Warum dieses Framework</div>
-            <p>KI-Vertrauen entsteht durch ehrliche Erwartungen – nicht durch Hype. Dieses Modell zeigt realistische Möglichkeiten je Reifegrad.</p>
+    <div class="card-body">
+      <div class="two-col">
+        <div class="d-card">
+          <div class="d-label">Atlassian Rovo</div>
+          <ul>
+            <li>Sucht in Jira, Confluence, Google Drive, Slack, SharePoint</li>
+            <li>Versteht Beziehungen zwischen Personen, Projekten, Zielen (Teamwork Graph)</li>
+            <li>Unterstreicht Fachjargon und Abkürzungen mit Inline-Definitionen</li>
+            <li>Findet auch implizit verknüpfte Inhalte, nicht nur Keywords</li>
+          </ul>
         </div>
-        <div class="intro-item">
-            <div class="label">Wie es funktioniert</div>
-            <p>Jedes Team / jeder Prozess wird einem Level zugeordnet. Verbesserungen werden als Jira-Ticket beantragt – maximal +1 Level pro Iteration.</p>
+        <div class="d-card">
+          <div class="d-label">Microsoft Copilot</div>
+          <ul>
+            <li>Sucht in M365: SharePoint, Teams, Outlook, OneDrive</li>
+            <li>Grounded in Microsoft Graph – kennt Berechtigungen der Nutzer</li>
+            <li>Kann natürlichsprachliche Fragen über eigene Dateien beantworten</li>
+            <li>Zeigt Quellen und Verweise direkt in der Antwort</li>
+          </ul>
         </div>
-        <div class="intro-item">
-            <div class="label">Wichtige Regel</div>
-            <p>KI verstärkt was vorhanden ist. Gute Prozesse werden schneller. Schlechte Prozesse scheitern schneller. Zuerst den Prozess klären.</p>
-        </div>
+      </div>
+      <div class="note">Einschränkung: Antwortqualität ist direkt abhängig von der Qualität und Aktualität der vorhandenen Dokumentation.</div>
     </div>
+  </div>
 
-    <!-- Tiers -->
-    <div class="section-label">Reifegradmodell — klicken zum Ausklappen</div>
-    <div class="tiers">
-
-        <!-- Level 0 -->
-        <div class="tier tier-0" id="tier-0">
-            <div class="tier-header" onclick="toggle(0)">
-                <div class="tier-badge"><div class="lvl">Level</div><div class="num">0</div></div>
-                <div class="tier-info">
-                    <h3>Awareness — Kenntnis</h3>
-                    <p>KI ist verfügbar, wird aber kaum genutzt. Teams sind vorsichtig oder kennen die Möglichkeiten noch nicht.</p>
-                    <div class="tier-tags">
-                        <span class="tag">Nur Suche</span>
-                        <span class="tag">Keine Agenten</span>
-                        <span class="tag">Discovery-Phase</span>
-                    </div>
-                </div>
-                <div class="chevron">▼</div>
-            </div>
-            <div class="tier-detail" id="det-0">
-                <div class="detail-grid">
-                    <div class="d-card">
-                        <div class="d-label">Was heute möglich ist</div>
-                        <ul>
-                            <li>Rovo Search über Confluence + Jira</li>
-                            <li>Copilot fasst E-Mail-Threads zusammen</li>
-                            <li>Basis-Q&amp;A auf Basis von Org-Daten</li>
-                            <li>SharePoint AI-Zusammenfassungen</li>
-                        </ul>
-                    </div>
-                    <div class="d-card">
-                        <div class="d-label">Reale Einschränkungen</div>
-                        <ul>
-                            <li>Antworten so gut wie die vorhandene Doku</li>
-                            <li>Kein Handeln — nur Lesezugriff</li>
-                            <li>Halluzinationen bei lückenhafter Wissensbasis</li>
-                            <li>Kein Erinnerungsvermögen zwischen Sessions</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="expectation">
-                    <div class="e-label">Erwartungsmanagement</div>
-                    „KI ist ein verbessertes Suchwerkzeug – keine magische Antwortmaschine."
-                </div>
-            </div>
-        </div>
-
-        <!-- Level 1 -->
-        <div class="tier tier-1" id="tier-1">
-            <div class="tier-header" onclick="toggle(1)">
-                <div class="tier-badge"><div class="lvl">Level</div><div class="num">1</div></div>
-                <div class="tier-info">
-                    <h3>Assisted — Unterstützt</h3>
-                    <p>KI hilft Einzelpersonen beim Erstellen, Zusammenfassen und Finden. Menschen prüfen immer, bevor etwas gespeichert wird.</p>
-                    <div class="tier-tags">
-                        <span class="tag">Rovo Chat</span>
-                        <span class="tag">Copilot in Word/Outlook</span>
-                        <span class="tag">Mensch im Loop</span>
-                    </div>
-                </div>
-                <div class="chevron">▼</div>
-            </div>
-            <div class="tier-detail" id="det-1">
-                <div class="detail-grid">
-                    <div class="d-card">
-                        <div class="d-label">Was heute möglich ist</div>
-                        <ul>
-                            <li>Release Notes aus Jira-Tickets entwerfen</li>
-                            <li>Lange Confluence-Seiten zusammenfassen</li>
-                            <li>E-Mails in Outlook Copilot umformulieren</li>
-                            <li>Meeting-Zusammenfassung aus Teams</li>
-                            <li>Rovo Chat: „Was hat Team X entschieden?"</li>
-                        </ul>
-                    </div>
-                    <div class="d-card">
-                        <div class="d-label">Reale Einschränkungen</div>
-                        <ul>
-                            <li>Jede Ausgabe muss geprüft werden</li>
-                            <li>Kontextfenster begrenzt – nicht alle Docs geladen</li>
-                            <li>Noch keine tool-übergreifenden Aktionen</li>
-                            <li>Formatierungspräferenzen nicht gespeichert</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="expectation">
-                    <div class="e-label">Erwartungsmanagement</div>
-                    „KI liefert einen schnellen Erstentwurf – kein fertiges Produkt. Du bleibst der Autor."
-                </div>
-            </div>
-        </div>
-
-        <!-- Level 2 -->
-        <div class="tier tier-2" id="tier-2">
-            <div class="tier-header" onclick="toggle(2)">
-                <div class="tier-badge"><div class="lvl">Level</div><div class="num">2</div></div>
-                <div class="tier-info">
-                    <h3>Augmented — Erweitert</h3>
-                    <p>Vorgefertigte Agenten übernehmen spezifische, wiederkehrende Aufgaben. Menschen genehmigen, bevor Änderungen gespeichert werden.</p>
-                    <div class="tier-tags">
-                        <span class="tag">Rovo Agenten (Template)</span>
-                        <span class="tag">Copilot Agenten</span>
-                        <span class="tag">Approve &amp; Commit</span>
-                    </div>
-                </div>
-                <div class="chevron">▼</div>
-            </div>
-            <div class="tier-detail" id="det-2">
-                <div class="detail-grid">
-                    <div class="d-card">
-                        <div class="d-label">Was heute möglich ist</div>
-                        <ul>
-                            <li>Backlog-Agent gruppiert Jira-Issues nach Thema</li>
-                            <li>Onboarding-Agent beantwortet HR-Fragen 24/7</li>
-                            <li>JSM Self-Service Agent leitet Tickets weiter</li>
-                            <li>Copilot-Agent entwirft wöchentliche Statusberichte</li>
-                            <li>Rovo unterstreicht Fachjargon mit Inline-Definitionen</li>
-                        </ul>
-                    </div>
-                    <div class="d-card">
-                        <div class="d-label">Reale Einschränkungen</div>
-                        <ul>
-                            <li>Agentenumfang ist fix – nur zugewiesene Skills</li>
-                            <li>Funktioniert nur in verbundenen Tools</li>
-                            <li>Wissensbasis muss von Menschen gepflegt werden</li>
-                            <li>Kein Lernen zwischen Sessions (noch)</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="expectation">
-                    <div class="e-label">Erwartungsmanagement</div>
-                    „Agenten können eine Sache gut. Sie sind kein Allzweckwerkzeug. Zuerst den Scope definieren, dann deployen."
-                </div>
-            </div>
-        </div>
-
-        <!-- Level 3 -->
-        <div class="tier tier-3" id="tier-3">
-            <div class="tier-header" onclick="toggle(3)">
-                <div class="tier-badge"><div class="lvl">Level</div><div class="num">3</div></div>
-                <div class="tier-info">
-                    <h3>Automated — Automatisiert</h3>
-                    <p>Eigene Agenten führen mehrstufige Workflows mit minimalen menschlichen Berührungspunkten aus. Ausnahmen eskalieren automatisch.</p>
-                    <div class="tier-tags">
-                        <span class="tag">Rovo Studio</span>
-                        <span class="tag">Copilot Studio</span>
-                        <span class="tag">Trigger-basiert</span>
-                    </div>
-                </div>
-                <div class="chevron">▼</div>
-            </div>
-            <div class="tier-detail" id="det-3">
-                <div class="detail-grid">
-                    <div class="d-card">
-                        <div class="d-label">Was heute möglich ist</div>
-                        <ul>
-                            <li>Incident Report wird bei Jira-Issue-Erstellung automatisch erstellt</li>
-                            <li>Slack-Thread wird automatisch mit JSM-Ticket synchronisiert</li>
-                            <li>Release Notes in Confluence beim Sprint-Abschluss</li>
-                            <li>Copilot-Agent bearbeitet Beschaffungsanträge Ende-zu-Ende</li>
-                            <li>Cross-Tool-Gedächtnis verknüpft Personen, Projekte, Ziele</li>
-                        </ul>
-                    </div>
-                    <div class="d-card">
-                        <div class="d-label">Reale Einschränkungen</div>
-                        <ul>
-                            <li>Benötigt saubere, konsistente Upstream-Daten</li>
-                            <li>Governance: Wer besitzt den Agenten bei Personalwechsel?</li>
-                            <li>Keine autonomen Entscheidungen bei Ausnahmen</li>
-                            <li>Rovo Studio benötigt Admin-Setup + Berechtigungen</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="expectation">
-                    <div class="e-label">Erwartungsmanagement</div>
-                    „Automatisierung verstärkt die Qualität deiner Prozesse – gute werden schneller, schlechte scheitern schneller."
-                </div>
-            </div>
-        </div>
-
-        <!-- Level 4 -->
-        <div class="tier tier-4" id="tier-4">
-            <div class="tier-header" onclick="toggle(4)">
-                <div class="tier-badge"><div class="lvl">Level</div><div class="num">4</div></div>
-                <div class="tier-info">
-                    <h3>Autonomous — Autonom</h3>
-                    <p>Agenten koordinieren sich tool-übergreifend, treffen Entscheidungen innerhalb definierter Leitplanken und verbessern sich durch Feedback.</p>
-                    <div class="tier-tags">
-                        <span class="tag">Multi-Agent</span>
-                        <span class="tag">Rovo Dev</span>
-                        <span class="tag">MCP Integrationen</span>
-                    </div>
-                </div>
-                <div class="chevron">▼</div>
-            </div>
-            <div class="tier-detail" id="det-4">
-                <div class="detail-grid">
-                    <div class="d-card">
-                        <div class="d-label">Was heute möglich ist</div>
-                        <ul>
-                            <li>Rovo Dev verwandelt Jira-Items in funktionierenden Code</li>
-                            <li>Agenten in Jira zugewiesen + in Kommentaren @erwähnt</li>
-                            <li>Mehrstufiges Reasoning über Jira, Confluence, Slack, Drive</li>
-                            <li>Copilot „Researcher" führt agentische Tiefenrecherchen durch</li>
-                            <li>MCP: Figma, Box, Salesforce, Amplitude verbunden</li>
-                        </ul>
-                    </div>
-                    <div class="d-card">
-                        <div class="d-label">Reale Einschränkungen</div>
-                        <ul>
-                            <li>Nur Atlassian Cloud — kein Data Center</li>
-                            <li>Erfordert ausgereifte Governance + Agent-Lifecycle-Policies</li>
-                            <li>Kritische Entscheidungen benötigen weiterhin menschliche Prüfung</li>
-                            <li>Stark abhängig von Datenqualität &amp; Berechtigungen</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="expectation">
-                    <div class="e-label">Erwartungsmanagement</div>
-                    „Level 4 ist kein ‚Set and forget'. Es ist hochgradig vertrauensvolle Zusammenarbeit mit einem sehr schnellen Kollegen."
-                </div>
-            </div>
-        </div>
+  <div class="card" id="c1">
+    <div class="card-header" onclick="tog('c1')">
+      <div class="card-icon">💬</div>
+      <div class="card-title">
+        <h3>Rovo Chat / Copilot Chat</h3>
+        <p>Interaktiver Assistent mit Organisationskontext</p>
+        <div class="card-tags"><span class="tag blue">Rovo</span><span class="tag teal">Copilot</span></div>
+      </div>
+      <div class="chev">▼</div>
     </div>
-
-    <!-- Constraints / Capabilities comparison -->
-    <div class="section-label">Tool-Vergleich auf einen Blick</div>
-    <div class="two-col" style="margin-bottom:2.5rem">
-        <div class="info-block">
-            <h4>Atlassian Rovo</h4>
-            <ul>
-                <li>Enterprise Search <span class="pill ok">Jira + Confluence</span></li>
-                <li>Rovo Chat (kontextuell) <span class="pill ok">Verfügbar</span></li>
-                <li>Vorgefertigte Agenten <span class="pill ok">Verfügbar</span></li>
-                <li>Rovo Studio (no-code) <span class="pill ok">Verfügbar</span></li>
-                <li>Rovo Dev (IDE) <span class="pill ok">Verfügbar</span></li>
-                <li>Data Center Support <span class="pill no">Nicht verfügbar</span></li>
-                <li>Cross-Tool Memory <span class="pill ok">Teamwork Graph</span></li>
-                <li>MCP Integrationen <span class="pill ok">Figma, Box, u.a.</span></li>
-            </ul>
+    <div class="card-body">
+      <div class="two-col">
+        <div class="d-card">
+          <div class="d-label">Atlassian Rovo Chat</div>
+          <ul>
+            <li>Beantwortet komplexe Fragen mit Unternehmenskontext</li>
+            <li>Kann direkt aus dem Chat Jira-Tickets erstellen oder aktualisieren</li>
+            <li>Google Calendar Events erstellen, Slack-Nachrichten senden</li>
+            <li>Work auf Jira-Tickets direkt loggen</li>
+            <li>Erinnert sich an persönliche Rollen- und Formatierungseinstellungen</li>
+          </ul>
         </div>
-        <div class="info-block">
-            <h4>Microsoft Copilot</h4>
-            <ul>
-                <li>Copilot in Word/Outlook/Teams <span class="pill ok">Verfügbar</span></li>
-                <li>Copilot Studio (low-code) <span class="pill ok">Verfügbar</span></li>
-                <li>Agent Builder (natural language) <span class="pill ok">Verfügbar</span></li>
-                <li>Governance via M365 Admin <span class="pill ok">Vollständig</span></li>
-                <li>Human-in-the-loop Flows <span class="pill ok">Verfügbar</span></li>
-                <li>Datenhygiene Voraussetzung <span class="pill warn">Pflicht vor Rollout</span></li>
-                <li>SharePoint Verankerung <span class="pill ok">Nativ</span></li>
-                <li>Excel / PowerPoint Copilot <span class="pill ok">Verfügbar</span></li>
-            </ul>
+        <div class="d-card">
+          <div class="d-label">Microsoft Copilot Chat</div>
+          <ul>
+            <li>Beantwortet Fragen auf Basis von M365-Daten und Websuche</li>
+            <li>Kann in Teams, Outlook und dem Browser genutzt werden</li>
+            <li>Erstellt Zusammenfassungen vergangener Meetings</li>
+            <li>Schlägt nächste Schritte aus E-Mail-Threads vor</li>
+          </ul>
         </div>
+      </div>
+      <div class="note">Einschränkung: Chat-Antworten sind keine Entscheidungen. Immer menschliche Prüfung vor dem Speichern oder Versenden.</div>
     </div>
+  </div>
 
-    <!-- Adoption process -->
-    <div class="section-label">Adoptionsprozess — Schritt für Schritt</div>
-    <div class="steps">
-        <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-content">
-                <h4>Einen Prozess pro Team identifizieren</h4>
-                <p>Nicht die ganze Organisation. Eine echte, wiederkehrende Aufgabe – Backlog-Cleanup, Statusbericht, Onboarding-FAQ. Zeigen statt versprechen.</p>
-            </div>
-        </div>
-        <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-content">
-                <h4>Reifegrad ehrlich einschätzen</h4>
-                <p>Wo steht das Team heute? Level 0–1 ist normal und gut. Kein Überspringen. Maximal +1 Level pro Iteration beantragen.</p>
-            </div>
-        </div>
-        <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-content">
-                <h4>Output prüfen – das ist der Vertrauensaufbau</h4>
-                <p>Der Moment, in dem jemand KI-Output korrigiert, ist wertvoll: sie lernen die Grenzen des Tools kennen und trauen ihm danach mehr.</p>
-            </div>
-        </div>
-        <div class="step-row">
-            <div class="step-num">04</div>
-            <div class="step-content">
-                <h4>Erfahrung auf dieser Seite dokumentieren</h4>
-                <p>Welche Aufgabe? Welches Level? Vorher vs. nachher? Was braucht noch menschliche Prüfung? Echte Zahlen, echte Vorbehalte.</p>
-            </div>
-        </div>
-        <div class="step-row">
-            <div class="step-num">05</div>
-            <div class="step-content">
-                <h4>Verbesserung als Jira-Ticket beantragen</h4>
-                <p>Projekt AI-OPS, Issue-Typ „Agent-Verbesserung". Feld: aktuelles Level → Ziel-Level (max. +1). Strukturiertes Feedback ohne freien Fall.</p>
-            </div>
-        </div>
+  <div class="card" id="c2">
+    <div class="card-header" onclick="tog('c2')">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">
+        <h3>KI-Agenten</h3>
+        <p>Virtuelle Teammitglieder, denen Aufgaben zugewiesen werden können</p>
+        <div class="card-tags"><span class="tag blue">Rovo Studio</span><span class="tag teal">Copilot Studio</span><span class="tag amber">No-Code</span></div>
+      </div>
+      <div class="chev">▼</div>
     </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div class="d-card">
+          <div class="d-label">Rovo Agenten — was sie tun</div>
+          <ul>
+            <li>Backlog nach Themen gruppieren oder veraltete Tickets bereinigen</li>
+            <li>Release Notes aus Jira-Tasks in Confluence schreiben</li>
+            <li>Onboarding-Fragen rund um die Uhr beantworten</li>
+            <li>Slack-Threads mit JSM-Tickets synchronisieren</li>
+            <li>In Jira zugewiesen und in Kommentaren @erwähnt werden</li>
+          </ul>
+        </div>
+        <div class="d-card">
+          <div class="d-label">Copilot Agenten — was sie tun</div>
+          <ul>
+            <li>Wöchentliche Statusberichte automatisch entwerfen</li>
+            <li>Beschaffungsanträge Ende-zu-Ende bearbeiten</li>
+            <li>Mehrstufige Aufgaben über Apps hinweg ausführen</li>
+            <li>Pause einlegen und Mensch um Freigabe bitten (Human-in-the-loop)</li>
+            <li>In natürlicher Sprache erstellt – kein Code nötig</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">Einschränkung: Agenten können nur die Skills, die ihnen gegeben wurden. Scope vor dem Deployment klar definieren.</div>
+    </div>
+  </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <span>AI Enablement · Rovo &amp; Copilot Framework</span>
-        <span>Letzte Aktualisierung: März 2026</span>
+  <div class="card" id="c3">
+    <div class="card-header" onclick="tog('c3')">
+      <div class="card-icon">📝</div>
+      <div class="card-title">
+        <h3>Zusammenfassung &amp; Drafting</h3>
+        <p>Lange Inhalte komprimieren, erste Entwürfe generieren</p>
+        <div class="card-tags"><span class="tag blue">Rovo</span><span class="tag teal">Copilot</span></div>
+      </div>
+      <div class="chev">▼</div>
     </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div class="d-card">
+          <div class="d-label">Atlassian Rovo</div>
+          <ul>
+            <li>Lange Confluence-Seiten in Aktionspunkte zusammenfassen</li>
+            <li>Meeting-Transcripts kondensieren</li>
+            <li>Sprint-Zusammenfassungen aus Jira-Daten erstellen</li>
+            <li>Jira-Issues aus Beschreibungen generieren</li>
+          </ul>
+        </div>
+        <div class="d-card">
+          <div class="d-label">Microsoft Copilot</div>
+          <ul>
+            <li>E-Mail-Threads zusammenfassen und Antwort vorschlagen</li>
+            <li>Word-Dokumente aus Stichpunkten entwerfen</li>
+            <li>PowerPoint-Präsentationen aus Texten erstellen</li>
+            <li>Excel-Daten erklären und kommentieren</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">Einschränkung: Ausgaben müssen immer geprüft werden. KI ist ein schneller Erstentwurf – du bleibst der Autor.</div>
+    </div>
+  </div>
 
 </div>
+
+<!-- ── HIDDEN GEMS ── -->
+<div class="section-label">Weniger bekannte Funktionen — Hidden Gems</div>
+<div class="gems">
+  <div class="gem">
+    <div class="gem-icon">🧠</div>
+    <h4>Individual Memory (Rovo)</h4>
+    <p>Rovo merkt sich deine persönliche Rolle und Formatierungsvorlieben. Du musst dich nicht jedes Mal neu erklären.</p>
+  </div>
+  <div class="gem">
+    <div class="gem-icon">🕸️</div>
+    <h4>Teamwork Graph (Rovo)</h4>
+    <p>Rovo kartiert nicht nur Keywords – es versteht Beziehungen zwischen Personen, Projekten und Zielen für kontextbezogene Antworten.</p>
+  </div>
+  <div class="gem">
+    <div class="gem-icon">⚡</div>
+    <h4>Actionable Skills im Chat (Rovo)</h4>
+    <p>Direkt aus dem Chatfenster: Google Calendar Events erstellen, Slack-Nachrichten senden, Jira-Work loggen – ohne das Tool zu wechseln.</p>
+  </div>
+  <div class="gem">
+    <div class="gem-icon">🔤</div>
+    <h4>Custom Definitions (Rovo)</h4>
+    <p>Firmenspezifisches Vokabular und Abkürzungen werden unterstrichen und mit Inline-Definitionen versehen – kein Nachfragen mehr nötig.</p>
+  </div>
+  <div class="gem">
+    <div class="gem-icon">💻</div>
+    <h4>Rovo Dev</h4>
+    <p>Eine spezialisierte Version für Entwickler, die Jira-Items direkt in funktionierenden Code im Terminal oder der IDE umwandelt.</p>
+  </div>
+  <div class="gem">
+    <div class="gem-icon">🔬</div>
+    <h4>Copilot Researcher</h4>
+    <p>Führt agentische Tiefenrecherchen durch – bricht komplexe Anfragen in Schritte auf und arbeitet über mehrere Tools hinweg.</p>
+  </div>
+  <div class="gem">
+    <div class="gem-icon">🔌</div>
+    <h4>MCP Integrationen</h4>
+    <p>Beide Plattformen verbinden sich mit Drittanbieter-Tools: Figma, Box, Salesforce, Amplitude, Canva und mehr.</p>
+  </div>
+  <div class="gem">
+    <div class="gem-icon">🛡️</div>
+    <h4>Human-in-the-loop (Copilot)</h4>
+    <p>Copilot Studio Agenten können anhalten und auf menschliche Freigabe warten, bevor sie kritische Aktionen ausführen.</p>
+  </div>
+</div>
+
+<!-- ── CONSTRAINTS ── -->
+<div class="section-label">Bekannte Einschränkungen — Ehrlicher Überblick</div>
+<div class="cards">
+  <div class="card" id="cx">
+    <div class="card-header" onclick="tog('cx')">
+      <div class="card-icon">⚠️</div>
+      <div class="card-title">
+        <h3>Was KI heute noch nicht kann</h3>
+        <p>Einschränkungen, die du kennen musst, bevor du startest</p>
+        <div class="card-tags"><span class="tag red">Rovo + Copilot</span></div>
+      </div>
+      <div class="chev">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div class="d-card">
+          <div class="d-label">Inhaltliche Grenzen</div>
+          <ul>
+            <li>Antwortqualität ist direkt abhängig von der Doku-Qualität</li>
+            <li>Halluzinationen bei lückenhafter oder veralteter Wissensbasis</li>
+            <li>Kein echtes „Verstehen" – Mustererkennung auf Trainingsdaten</li>
+            <li>Kontextfenster begrenzt – nicht alle Docs gleichzeitig geladen</li>
+          </ul>
+        </div>
+        <div class="d-card">
+          <div class="d-label">Technische &amp; organisatorische Grenzen</div>
+          <ul>
+            <li>Rovo nur auf Atlassian Cloud – kein Data Center</li>
+            <li>Agenten treffen keine autonomen Entscheidungen bei Ausnahmen</li>
+            <li>Kein Lernen zwischen Sessions ohne explizite Memory-Funktionen</li>
+            <li>Governance nötig: Wer besitzt den Agenten bei Personalwechsel?</li>
+            <li>Copilot benötigt saubere M365-Datenstruktur vor dem Rollout</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note" style="border-left-color:#B05800;">Grundregel: KI verstärkt was vorhanden ist. Gute Prozesse werden schneller. Schlechte Prozesse scheitern schneller. Zuerst den Prozess klären.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>AI Enablement · Rovo &amp; Copilot Übersicht</span>
+  <span>März 2026</span>
+</div>
+
 <script>
-    function toggle(n) {
-        const tier = document.getElementById('tier-' + n);
-        const det = document.getElementById('det-' + n);
-        const isOpen = det.classList.contains('open');
-        document.querySelectorAll('.tier-detail').forEach(d => d.classList.remove('open'));
-        document.querySelectorAll('.tier').forEach(t => t.classList.remove('expanded'));
-        if (!isOpen) {
-            det.classList.add('open');
-            tier.classList.add('expanded');
-        }
-    }
+  function tog(id) {
+    const c = document.getElementById(id);
+    const isOpen = c.classList.contains('open');
+    document.querySelectorAll('.card').forEach(x => x.classList.remove('open'));
+    if (!isOpen) c.classList.add('open');
+  }
 </script>
 </body>
 </html>
