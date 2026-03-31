@@ -9,207 +9,85 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:          #f4f5f2;
-    --surface:     #eaebe7;
-    --border:      #d3d8cc;
-    --text:        #1a1f12;
-    --muted:       #6b7260;
-    --accent:      #84BC34;
-    --accent-dark: #6a9828;
-    --radius:      14px;
-    --font:        'DM Sans', sans-serif;
+    --bg:           #f4f5f2;
+    --surface:      #eaebe7;
+    --border:       #d3d8cc;
+    --text:         #1a1f12;
+    --muted:        #6b7260;
+    --accent:       #84BC34;
+    --accent-dark:  #6a9828;
+    --accent-light: #edf6d9;
+    --radius:       14px;
+    --font:         'DM Sans', sans-serif;
   }
 
-  body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    padding: 48px 32px 64px;
-    max-width: 960px;
-    margin: 0 auto;
-  }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); padding: 32px 32px 64px; max-width: 960px; margin: 0 auto; }
+
 
   /* ── Section label ── */
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
 
   section { margin-bottom: 56px; }
 
   /* ── Example cards ── */
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
 
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px 24px 24px;
-    cursor: pointer;
-    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,.08);
-    border-color: #b8c4ad;
-  }
-
-  .card.active {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(132,188,52,.18);
-  }
-
-  .card-icon {
-    font-size: 28px;
-    margin-bottom: 16px;
-    display: block;
-    line-height: 1;
-  }
-
-  .card h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .card p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px 24px; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); border-color: #b8c4ad; }
+  .card.active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(132,188,52,.18); }
+  .card-icon { font-size: 28px; margin-bottom: 16px; display: block; line-height: 1; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .card p { font-size: 14px; color: var(--muted); line-height: 1.5; }
 
   /* ── Detail box ── */
-  .detail-box {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px 28px;
-    margin-top: 20px;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.65;
-    display: none;
-    animation: fadeSlide .22s ease;
-  }
-
+  .detail-box { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin-top: 20px; font-size: 14px; color: var(--muted); line-height: 1.65; display: none; animation: fadeSlide .22s ease; }
   .detail-box.visible { display: block; }
 
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  /* ── Sort Steps ── */
+  .sort-hint { font-size: 12px; color: var(--muted); margin-bottom: 14px; padding: 8px 14px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); }
+  .sort-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .sort-step { background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius); padding: 22px 14px 18px; text-align: center; cursor: pointer; transition: all .2s ease; user-select: none; }
+  .sort-step:hover { border-color: var(--accent); background: var(--accent-light); }
+  .sort-step.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 3px rgba(132,188,52,.2); }
+  .sort-icon { font-size: 22px; margin-bottom: 10px; display: block; }
+  .sort-step h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .sort-step p { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .check-btn { padding: 10px 22px; background: var(--accent); border: none; border-radius: 10px; color: #fff; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+  .check-btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .sort-feedback { padding: 13px 18px; border-radius: var(--radius); font-size: 14px; font-weight: 600; display: none; margin-top: 12px; animation: fadeSlide .3s ease; }
+  .sort-feedback.success { display: block; background: var(--accent-light); border: 1px solid var(--accent); color: var(--accent-dark); }
+  .sort-feedback.error { display: block; background: rgba(224,57,45,.08); border: 1px solid #e0392d; color: #b93232; }
 
-  /* ── Steps ── */
-  .steps {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    overflow: hidden;
-  }
+  /* ── True/False ── */
+  .tf-wrap { max-width: 560px; margin: 0 auto; }
+  .tf-progress { display: flex; gap: 6px; margin-bottom: 16px; justify-content: center; }
+  .tf-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .2s; }
+  .tf-dot.correct { background: var(--accent); }
+  .tf-dot.wrong { background: #e0392d; }
+  .tf-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 32px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,.06); min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; animation: fadeSlide .3s ease; }
+  .tf-statement { font-size: 17px; font-weight: 600; line-height: 1.45; color: var(--text); }
+  .tf-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .tf-btn { padding: 10px 22px; border-radius: 10px; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; border: 2px solid; }
+  .tf-btn.yes { background: var(--accent-light); border-color: var(--accent); color: var(--accent-dark); }
+  .tf-btn.yes:hover { background: var(--accent); color: #fff; }
+  .tf-btn.no { background: rgba(224,57,45,.07); border-color: #e0392d; color: #b93232; }
+  .tf-btn.no:hover { background: #e0392d; color: #fff; }
+  .tf-feedback { padding: 11px 15px; border-radius: 10px; font-size: 13.5px; line-height: 1.5; display: none; width: 100%; text-align: left; animation: fadeSlide .2s ease; }
+  .tf-feedback.show { display: block; }
+  .tf-feedback.correct { background: var(--accent-light); border: 1px solid var(--accent); color: var(--accent-dark); }
+  .tf-feedback.wrong { background: rgba(224,57,45,.08); border: 1px solid #e0392d; color: #b93232; }
+  .tf-next { padding: 9px 20px; background: var(--accent); border: none; border-radius: 10px; color: #fff; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; display: none; transition: all .2s; }
+  .tf-next.show { display: inline-block; }
+  .tf-next:hover { background: var(--accent-dark); }
+  .tf-score { text-align: center; padding: 32px; display: none; animation: fadeSlide .3s ease; }
+  .tf-score.show { display: block; }
+  .tf-score .big { font-size: 52px; font-weight: 700; color: var(--accent); display: block; margin-bottom: 8px; }
+  .tf-score .msg { font-size: 15px; color: var(--muted); }
+  .tf-reset { margin-top: 18px; padding: 9px 22px; background: transparent; border: 1.5px solid var(--accent); border-radius: 10px; color: var(--accent-dark); font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+  .tf-reset:hover { background: var(--accent); color: #fff; }
 
-  .step {
-    padding: 32px 20px 28px;
-    text-align: center;
-    border-right: 1px solid var(--border);
-    position: relative;
-    cursor: pointer;
-    transition: background .15s;
-  }
-
-  .step:last-child { border-right: none; }
-  .step:hover { background: rgba(132,188,52,.06); }
-
-  .step-num {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #fff;
-    font-weight: 700;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 18px;
-    transition: transform .2s ease;
-  }
-
-  .step:hover .step-num { transform: scale(1.1); }
-
-  .step h4 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .step p {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  /* ── Was KI ist / nicht ist ── */
-  .comparison {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  @media (max-width: 520px) { .comparison { grid-template-columns: 1fr; } }
-
-  .comp-box {
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 24px 20px;
-    background: var(--surface);
-  }
-
-  .comp-box h4 {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    margin-bottom: 16px;
-  }
-
-  .comp-box.yes h4 { color: var(--accent-dark); }
-  .comp-box.no  h4 { color: #b93232; }
-
-  .comp-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .comp-list li {
-    font-size: 14px;
-    color: var(--muted);
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    line-height: 1.4;
-  }
-
-  .comp-list li::before {
-    font-size: 15px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .comp-box.yes .comp-list li::before { content: "✓"; color: var(--accent-dark); font-weight: 700; }
-  .comp-box.no  .comp-list li::before { content: "✗"; color: #b93232; font-weight: 700; }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
 </style>
 </head>
 <body>
@@ -218,105 +96,192 @@
 <section>
   <p class="section-label">Du kennst KI bereits — Klick ein Beispiel</p>
   <div class="cards">
-    <div class="card" data-detail="spam">
-      <span class="card-icon">📧</span>
-      <h3>Spam-Filter</h3>
-      <p>Erkennt unerwünschte Mails automatisch</p>
-    </div>
-    <div class="card" data-detail="spotify">
-      <span class="card-icon">🎵</span>
-      <h3>Spotify / Netflix</h3>
-      <p>Schlägt vor, was zu dir passt</p>
-    </div>
-    <div class="card" data-detail="copilot">
-      <span class="card-icon">💬</span>
-      <h3>Copilot &amp; Rovo</h3>
-      <p>Versteht deine Fragen und antwortet</p>
-    </div>
+    <div class="card" data-detail="spam"><span class="card-icon">📧</span><h3>Spam-Filter</h3><p>Erkennt unerwünschte Mails automatisch</p></div>
+    <div class="card" data-detail="spotify"><span class="card-icon">🎵</span><h3>Spotify / Netflix</h3><p>Schlägt vor, was zu dir passt</p></div>
+    <div class="card" data-detail="copilot"><span class="card-icon">💬</span><h3>Copilot &amp; Rovo</h3><p>Versteht deine Fragen und antwortet</p></div>
   </div>
-
-  <div class="detail-box" id="detail-spam">
-    <strong>Spam-Filter</strong> sind eines der ältesten KI-Anwendungsbeispiele. Das System wurde mit Millionen echter Spam-Mails trainiert und lernt dabei Muster – verdächtige Absender, bestimmte Wörter, seltsame Links. Heute filtert Gmail täglich über 100 Millionen Spam-Mails automatisch heraus.
-  </div>
-  <div class="detail-box" id="detail-spotify">
-    <strong>Empfehlungssysteme</strong> analysieren, was du hörst oder schaust, und vergleichen dein Verhalten mit Millionen anderer Nutzer. KI findet dabei Gemeinsamkeiten, die Menschen nie bewusst auffallen würden – und schlägt so den nächsten Song vor, den du noch nicht kennst, aber sofort liebst.
-  </div>
-  <div class="detail-box" id="detail-copilot">
-    <strong>Sprachmodelle</strong> wie Copilot oder Rovo wurden auf riesigen Textmengen trainiert. Sie lernen, wie Sprache funktioniert, welche Antworten sinnvoll sind und wie Kontexte zusammenhängen. Heute helfen sie beim Zusammenfassen, Schreiben und Recherchieren – direkt in deinen Arbeitstools.
-  </div>
+  <div class="detail-box" id="detail-spam"><strong>Spam-Filter</strong> sind eines der ältesten KI-Anwendungsbeispiele. Das System wurde mit Millionen echter Spam-Mails trainiert und lernt dabei Muster – verdächtige Absender, bestimmte Wörter, seltsame Links. Heute filtert Gmail täglich über 100 Millionen Spam-Mails automatisch heraus.</div>
+  <div class="detail-box" id="detail-spotify"><strong>Empfehlungssysteme</strong> analysieren, was du hörst oder schaust, und vergleichen dein Verhalten mit Millionen anderer Nutzer. KI findet dabei Gemeinsamkeiten, die Menschen nie bewusst auffallen würden – und schlägt so den nächsten Song vor, den du noch nicht kennst, aber sofort liebst.</div>
+  <div class="detail-box" id="detail-copilot"><strong>Sprachmodelle</strong> wie Copilot oder Rovo wurden auf riesigen Textmengen trainiert. Sie lernen, wie Sprache funktioniert, welche Antworten sinnvoll sind und wie Kontexte zusammenhängen. Heute helfen sie beim Zusammenfassen, Schreiben und Recherchieren – direkt in deinen Arbeitstools.</div>
 </section>
 
-<!-- ── SECTION 2 ── -->
+<!-- ── SECTION 2: Sort Steps ── -->
 <section>
-  <p class="section-label">Wie KI lernt — in 4 Schritten</p>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h4>Daten</h4>
-      <p>Tausende Beispiele werden gesammelt</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h4>Muster</h4>
-      <p>Die KI findet Gemeinsamkeiten</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h4>Lernen</h4>
-      <p>Sie verfeinert ihr Modell</p>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <h4>Vorhersage</h4>
-      <p>Neue Situationen werden erkannt</p>
-    </div>
-  </div>
+  <p class="section-label">Wie KI lernt — bring die Schritte in die richtige Reihenfolge</p>
+  <p class="sort-hint">Klicke zwei Schritte an, um sie zu tauschen. Dann auf "Prüfen".</p>
+  <div id="sortContainer" class="sort-container"></div>
+  <button class="check-btn" onclick="checkOrder()">Reihenfolge prüfen ✓</button>
+  <div id="sortFeedback" class="sort-feedback"></div>
 </section>
 
-<!-- ── SECTION 3 ── -->
+<!-- ── SECTION 3: True/False ── -->
 <section>
-  <p class="section-label">Was KI ist — und was nicht</p>
-  <div class="comparison">
-    <div class="comp-box yes">
-      <h4>KI kann …</h4>
-      <ul class="comp-list">
-        <li>Muster in großen Datenmengen erkennen</li>
-        <li>Texte zusammenfassen &amp; generieren</li>
-        <li>Wiederholende Aufgaben automatisieren</li>
-        <li>Schnell relevante Informationen finden</li>
-      </ul>
+  <p class="section-label">Was kann KI? — Stimmt oder stimmt nicht?</p>
+  <div class="tf-wrap">
+    <div class="tf-progress" id="tfProgress"></div>
+    <div class="tf-card" id="tfCard">
+      <div class="tf-statement" id="tfStatement"></div>
+      <div class="tf-feedback" id="tfFeedback"></div>
+      <div class="tf-buttons" id="tfButtons">
+        <button class="tf-btn yes" onclick="tfAnswer(true)">KI kann das ✓</button>
+        <button class="tf-btn no" onclick="tfAnswer(false)">KI kann das nicht ✗</button>
+      </div>
+      <button class="tf-next" id="tfNext" onclick="tfNextCard()">Weiter →</button>
     </div>
-    <div class="comp-box no">
-      <h4>KI kann nicht …</h4>
-      <ul class="comp-list">
-        <li>Echtes Verstehen oder Bewusstsein zeigen</li>
-        <li>Immer korrekte Fakten garantieren</li>
-        <li>Verantwortung übernehmen</li>
-        <li>Kreativität oder Intuition ersetzen</li>
-      </ul>
+    <div class="tf-score" id="tfScore">
+      <span class="big" id="tfScoreNum"></span>
+      <span class="msg" id="tfScoreMsg"></span><br>
+      <button class="tf-reset" onclick="tfReset()">↺ Nochmal</button>
     </div>
   </div>
 </section>
 
 <script>
-  // Card click → toggle detail box
+  // ── Card click → detail box ──
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
-      const key    = card.dataset.detail;
-      const box    = document.getElementById('detail-' + key);
+      const key = card.dataset.detail;
+      const box = document.getElementById('detail-' + key);
       const isOpen = box.classList.contains('visible');
-
-      // close all
       document.querySelectorAll('.detail-box').forEach(b => b.classList.remove('visible'));
       document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-
-      if (!isOpen) {
-        box.classList.add('visible');
-        card.classList.add('active');
-        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+      if (!isOpen) { box.classList.add('visible'); card.classList.add('active'); box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
     });
   });
+
+  // ── Sort Steps ──
+  const STEPS = [
+    { order: 1, icon: '📦', title: 'Daten',      desc: 'Tausende Beispiele werden gesammelt' },
+    { order: 2, icon: '🔎', title: 'Muster',     desc: 'Die KI findet Gemeinsamkeiten' },
+    { order: 3, icon: '📈', title: 'Lernen',     desc: 'Sie verfeinert ihr Modell' },
+    { order: 4, icon: '🎯', title: 'Vorhersage', desc: 'Neue Situationen werden erkannt' },
+  ];
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  let sortItems = shuffle(STEPS);
+  let selectedIdx = null;
+
+  function renderSort() {
+    const container = document.getElementById('sortContainer');
+    container.innerHTML = '';
+    sortItems.forEach((step, i) => {
+      const el = document.createElement('div');
+      el.className = 'sort-step' + (selectedIdx === i ? ' selected' : '');
+      el.innerHTML = `<span class="sort-icon">${step.icon}</span><h4>${step.title}</h4><p>${step.desc}</p>`;
+      el.onclick = () => selectStep(i);
+      container.appendChild(el);
+    });
+  }
+
+  function selectStep(i) {
+    if (selectedIdx === null) {
+      selectedIdx = i;
+    } else if (selectedIdx === i) {
+      selectedIdx = null;
+    } else {
+      [sortItems[selectedIdx], sortItems[i]] = [sortItems[i], sortItems[selectedIdx]];
+      selectedIdx = null;
+      document.getElementById('sortFeedback').className = 'sort-feedback';
+    }
+    renderSort();
+  }
+
+  function checkOrder() {
+    const fb = document.getElementById('sortFeedback');
+    const ok = sortItems.every((s, i) => s.order === i + 1);
+    if (ok) {
+      fb.className = 'sort-feedback success';
+      fb.textContent = '✓ Perfekt! Das ist die richtige Reihenfolge, wie KI lernt.';
+    } else {
+      fb.className = 'sort-feedback error';
+      fb.textContent = '✗ Noch nicht ganz. Womit fängt KI an — mit Daten oder Vorhersage?';
+    }
+  }
+
+  renderSort();
+
+  // ── True / False ──
+  const TF_CARDS = [
+    { s: 'KI kann Spam-Mails automatisch filtern.', a: true,  hint: 'Spam-Filter gehören zu den ältesten KI-Anwendungen.' },
+    { s: 'KI kann echtes Bewusstsein entwickeln.',  a: false, hint: 'KI simuliert Intelligenz – sie hat kein Bewusstsein oder Gefühle.' },
+    { s: 'KI kann Texte zusammenfassen und generieren.', a: true, hint: 'Genau das machen Sprachmodelle wie Copilot oder Claude.' },
+    { s: 'KI kann Verantwortung für ihre Fehler übernehmen.', a: false, hint: 'Verantwortung liegt immer beim Menschen, der die KI einsetzt.' },
+    { s: 'KI kann Muster in riesigen Datenmengen erkennen.', a: true, hint: 'Das ist eine der Kernstärken von Machine Learning.' },
+    { s: 'KI garantiert immer korrekte Fakten.', a: false, hint: 'KI kann halluzinieren – falsche Infos überzeugend klingen lassen.' },
+    { s: 'KI kann wiederholende Aufgaben automatisieren.', a: true, hint: 'Routineaufgaben sind ein klassischer Stärkebereich von KI.' },
+    { s: 'KI kann menschliche Kreativität vollständig ersetzen.', a: false, hint: 'KI unterstützt Kreativität, ersetzt aber nicht den menschlichen Antrieb.' },
+  ];
+
+  let tfIdx = 0, tfScore = 0, tfAnswered = false, tfResults = [];
+
+  function renderTFProgress() {
+    const prog = document.getElementById('tfProgress');
+    prog.innerHTML = '';
+    TF_CARDS.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'tf-dot' + (tfResults[i] === true ? ' correct' : tfResults[i] === false ? ' wrong' : '');
+      prog.appendChild(d);
+    });
+  }
+
+  function loadTFCard() {
+    tfAnswered = false;
+    const card = TF_CARDS[tfIdx];
+    document.getElementById('tfStatement').textContent = '"' + card.s + '"';
+    document.getElementById('tfFeedback').className = 'tf-feedback';
+    document.getElementById('tfNext').className = 'tf-next';
+    document.getElementById('tfButtons').style.display = 'flex';
+    document.getElementById('tfCard').style.display = 'flex';
+    document.getElementById('tfScore').className = 'tf-score';
+    renderTFProgress();
+  }
+
+  function tfAnswer(userSays) {
+    if (tfAnswered) return;
+    tfAnswered = true;
+    const card = TF_CARDS[tfIdx];
+    const correct = userSays === card.a;
+    tfResults[tfIdx] = correct;
+    if (correct) tfScore++;
+    const fb = document.getElementById('tfFeedback');
+    fb.className = 'tf-feedback show ' + (correct ? 'correct' : 'wrong');
+    fb.textContent = (correct ? '✓ Richtig! ' : '✗ Nicht ganz. ') + card.hint;
+    document.getElementById('tfButtons').style.display = 'none';
+    document.getElementById('tfNext').className = 'tf-next show';
+    renderTFProgress();
+  }
+
+  function tfNextCard() {
+    tfIdx++;
+    if (tfIdx >= TF_CARDS.length) showTFScore();
+    else loadTFCard();
+  }
+
+  function showTFScore() {
+    document.getElementById('tfCard').style.display = 'none';
+    const scoreEl = document.getElementById('tfScore');
+    scoreEl.className = 'tf-score show';
+    document.getElementById('tfScoreNum').textContent = tfScore + ' / ' + TF_CARDS.length;
+    const pct = tfScore / TF_CARDS.length;
+    document.getElementById('tfScoreMsg').textContent =
+      pct === 1   ? 'Perfekt – du kennst KI in- und auswendig!' :
+      pct >= 0.75 ? 'Sehr gut! Fast alles richtig.' :
+      pct >= 0.5  ? 'Guter Start! Schau dir die roten Punkte nochmal an.' :
+      'Noch etwas Übung – versuch es nochmal!';
+    renderTFProgress();
+  }
+
+  function tfReset() {
+    tfIdx = 0; tfScore = 0; tfAnswered = false; tfResults = [];
+    loadTFCard();
+  }
+
+  loadTFCard();
 </script>
 </body>
 </html>

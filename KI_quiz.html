@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -17,6 +18,7 @@
     --wrong: #e0392d;
     --text: #1a1f12;
     --muted: #6b7260;
+    --font: 'DM Sans', sans-serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,11 +26,8 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font);
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 2rem;
     overflow-x: hidden;
   }
@@ -36,302 +35,84 @@
   body::before {
     content: '';
     position: fixed;
-    top: -20%;
-    left: -10%;
-    width: 55%;
-    height: 55%;
+    top: -20%; left: -10%;
+    width: 55%; height: 55%;
     background: radial-gradient(circle, rgba(132,188,52,0.13) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
 
   body::after {
     content: '';
     position: fixed;
-    bottom: -20%;
-    right: -10%;
-    width: 45%;
-    height: 45%;
+    bottom: -20%; right: -10%;
+    width: 45%; height: 45%;
     background: radial-gradient(circle, rgba(132,188,52,0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 720px;
-  }
+  .page-wrap { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+
 
   /* Header */
-  .header {
-    text-align: center;
-    margin-bottom: 3rem;
-    animation: fadeDown 0.6s ease both;
-  }
-
-  .header .tag {
-    display: inline-block;
-    background: var(--accent-light);
-    border: 1px solid var(--border);
-    color: var(--accent-dark);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.4rem 1rem;
-    border-radius: 100px;
-    margin-bottom: 1.2rem;
-    font-weight: 600;
-  }
-
-  .header h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 800;
-    line-height: 1.1;
-    background: linear-gradient(135deg, #1a2a08 30%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .header p {
-    margin-top: 0.8rem;
-    color: var(--muted);
-    font-size: 1rem;
-  }
+  .header { text-align: center; margin-bottom: 2.5rem; animation: fadeDown 0.6s ease both; }
+  .header .tag { display: inline-block; background: var(--accent-light); border: 1px solid var(--border); color: var(--accent-dark); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.2rem; font-weight: 600; }
+  .header h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.1; background: linear-gradient(135deg, #1a2a08 30%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header p { margin-top: 0.8rem; color: var(--muted); font-size: 1rem; }
 
   /* Progress */
-  .progress-bar-wrap {
-    height: 4px;
-    background: var(--border);
-    border-radius: 100px;
-    margin-bottom: 2.5rem;
-    overflow: hidden;
-    animation: fadeDown 0.6s 0.1s ease both;
-  }
+  .progress-label { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; animation: fadeDown 0.6s 0.1s ease both; }
+  .streak-badge { background: var(--accent-light); border: 1px solid var(--accent); color: var(--accent-dark); padding: 2px 10px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; display: none; }
+  .progress-bar-wrap { height: 4px; background: var(--border); border-radius: 100px; margin-bottom: 0.6rem; overflow: hidden; animation: fadeDown 0.6s 0.1s ease both; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-dark)); border-radius: 100px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
 
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
-    border-radius: 100px;
-    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
-  }
-
-  .progress-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
-    animation: fadeDown 0.6s 0.1s ease both;
-  }
+  /* Timer bar */
+  .timer-wrap { height: 3px; background: var(--border); border-radius: 100px; margin-bottom: 2rem; overflow: hidden; animation: fadeDown 0.6s 0.15s ease both; }
+  .timer-bar { height: 100%; width: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-dark)); border-radius: 100px; transition: width 0.2s linear, background 0.5s ease; }
 
   /* Card */
-  .quiz-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 2.5rem;
-    animation: fadeUp 0.5s ease both;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 30px rgba(132,188,52,0.1), 0 1px 4px rgba(0,0,0,0.06);
-  }
-
-  .quiz-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
-  }
-
-  .question-number {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 500;
-    margin-bottom: 1rem;
-  }
-
-  .question-text {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-    font-weight: 700;
-    line-height: 1.45;
-    margin-bottom: 2rem;
-  }
+  .quiz-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; animation: fadeUp 0.5s ease both; position: relative; overflow: hidden; box-shadow: 0 4px 30px rgba(132,188,52,0.1), 0 1px 4px rgba(0,0,0,0.06); }
+  .quiz-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-dark)); }
+  .question-number { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .question-text { font-family: 'Syne', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.35rem); font-weight: 700; line-height: 1.45; margin-bottom: 2rem; }
 
   /* Options */
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-  }
-
-  .option {
-    background: #fafafa;
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem 1.3rem;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.97rem;
-    color: var(--text);
-    text-align: left;
-    transition: all 0.22s ease;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .option:hover:not(:disabled) {
-    border-color: var(--accent);
-    background: var(--accent-light);
-    transform: translateX(4px);
-  }
-
-  .option .letter {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: var(--accent-light);
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    color: var(--accent-dark);
-    flex-shrink: 0;
-    transition: all 0.22s;
-  }
-
-  .option.correct {
-    border-color: var(--correct);
-    background: rgba(132,188,52,0.12);
-    animation: pulse-correct 0.4s ease;
-  }
-
-  .option.correct .letter {
-    background: var(--correct);
-    border-color: var(--correct);
-    color: #fff;
-  }
-
-  .option.wrong {
-    border-color: var(--wrong);
-    background: rgba(224,57,45,0.07);
-    animation: shake 0.4s ease;
-  }
-
-  .option.wrong .letter {
-    background: var(--wrong);
-    border-color: var(--wrong);
-    color: #fff;
-  }
-
+  .options { display: flex; flex-direction: column; gap: 0.9rem; }
+  .option { background: #fafafa; border: 1.5px solid var(--border); border-radius: 12px; padding: 1rem 1.3rem; cursor: pointer; font-family: var(--font); font-size: 0.97rem; color: var(--text); text-align: left; transition: all 0.22s ease; display: flex; align-items: center; gap: 1rem; overflow: hidden; }
+  .option:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-light); transform: translateX(4px); }
+  .option .letter { width: 32px; height: 32px; border-radius: 8px; background: var(--accent-light); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8rem; color: var(--accent-dark); flex-shrink: 0; transition: all 0.22s; }
+  .option.correct { border-color: var(--correct); background: rgba(132,188,52,0.12); animation: pulse-correct 0.4s ease; }
+  .option.correct .letter { background: var(--correct); border-color: var(--correct); color: #fff; }
+  .option.wrong { border-color: var(--wrong); background: rgba(224,57,45,0.07); animation: shake 0.4s ease; }
+  .option.wrong .letter { background: var(--wrong); border-color: var(--wrong); color: #fff; }
   .option:disabled { cursor: default; }
 
   /* Explanation */
-  .explanation {
-    margin-top: 1.5rem;
-    padding: 1.2rem 1.4rem;
-    background: var(--accent-light);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #3a5a10;
-    animation: fadeUp 0.4s ease both;
-    display: none;
-  }
-
+  .explanation { margin-top: 1.5rem; padding: 1.2rem 1.4rem; background: var(--accent-light); border: 1px solid var(--border); border-radius: 12px; font-size: 0.9rem; line-height: 1.6; color: #3a5a10; animation: fadeUp 0.4s ease both; display: none; }
   .explanation.show { display: block; }
-
   .explanation strong { color: var(--accent-dark); }
 
-  /* Next Button */
-  .next-btn {
-    margin-top: 1.8rem;
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-    border: none;
-    border-radius: 12px;
-    color: #fff;
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-    transition: all 0.22s;
-    display: none;
-    animation: fadeUp 0.4s ease both;
-  }
+  /* Simple explanation button */
+  .simple-btn { margin-top: 0.8rem; padding: 7px 16px; background: transparent; border: 1.5px solid var(--accent); border-radius: 8px; color: var(--accent-dark); font-family: var(--font); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all .2s; display: none; }
+  .simple-btn.show { display: inline-block; }
+  .simple-btn:hover { background: var(--accent-light); }
+  .simple-explanation { margin-top: 0.7rem; padding: 0.9rem 1.1rem; background: #fff; border: 1.5px solid var(--accent); border-radius: 10px; font-size: 0.88rem; color: var(--accent-dark); line-height: 1.55; display: none; animation: fadeUp 0.3s ease both; }
+  .simple-explanation.show { display: block; }
 
+  /* Next Button */
+  .next-btn { margin-top: 1.8rem; width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); border: none; border-radius: 12px; color: #fff; font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; letter-spacing: 0.05em; transition: all 0.22s; display: none; animation: fadeUp 0.4s ease both; }
   .next-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(132,188,52,0.4); }
   .next-btn.show { display: block; }
 
   /* Result Screen */
-  .result-screen {
-    text-align: center;
-    animation: fadeUp 0.6s ease both;
-    display: none;
-  }
-
+  .result-screen { text-align: center; animation: fadeUp 0.6s ease both; display: none; }
   .result-screen.show { display: block; }
-
-  .result-emoji {
-    font-size: 4.5rem;
-    margin-bottom: 1.5rem;
-    display: block;
-    animation: bounce 0.6s ease both;
-  }
-
-  .result-screen h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #1a2a08, var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .score-display {
-    font-size: 4rem;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    margin: 1.5rem 0;
-    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
+  .result-emoji { font-size: 4.5rem; margin-bottom: 1.5rem; display: block; animation: bounce 0.6s ease both; }
+  .result-screen h2 { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(135deg, #1a2a08, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .score-display { font-size: 4rem; font-family: 'Syne', sans-serif; font-weight: 800; margin: 1.5rem 0; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .result-msg { color: var(--muted); margin-bottom: 2rem; font-size: 1rem; }
-
-  .restart-btn {
-    padding: 1rem 2.5rem;
-    background: transparent;
-    border: 1.5px solid var(--accent);
-    border-radius: 12px;
-    color: var(--accent-dark);
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.22s;
-  }
-
+  .restart-btn { padding: 1rem 2.5rem; background: transparent; border: 1.5px solid var(--accent); border-radius: 12px; color: var(--accent-dark); font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.22s; }
   .restart-btn:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
 
-  /* Animations */
   @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeUp   { from { opacity: 0; transform: translateY(16px);  } to { opacity: 1; transform: translateY(0); } }
   @keyframes shake    { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
@@ -340,20 +121,25 @@
 </style>
 </head>
 <body>
-<div class="container">
+<div class="page-wrap">
+
   <div class="header">
-    <div class="tag">freenet · KI & Digitale Assistenten · IT Portfolio </div>
+    <div class="tag">freenet · KI &amp; Digitale Assistenten · IT Portfolio</div>
     <h1>Was weißt du über KI?</h1>
-    <p>Teste dein Wissen zu Künstlicher Intelligenz </p>
+    <p>Teste dein Wissen zu Künstlicher Intelligenz</p>
   </div>
 
   <div id="quizArea">
     <div class="progress-label">
-      <span id="progressText">Frage 1 von 8</span>
+      <span id="progressText">Frage 1 von 5</span>
+      <span id="streakBadge" class="streak-badge"></span>
       <span id="scoreText">0 richtig</span>
     </div>
     <div class="progress-bar-wrap">
       <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+    <div class="timer-wrap">
+      <div class="timer-bar" id="timerBar"></div>
     </div>
 
     <div class="quiz-card" id="quizCard">
@@ -361,6 +147,8 @@
       <div class="question-text" id="qText"></div>
       <div class="options" id="optionsContainer"></div>
       <div class="explanation" id="explanation"></div>
+      <button class="simple-btn" id="simpleBtn" onclick="showSimple()">💡 Einfacher erklären</button>
+      <div class="simple-explanation" id="simpleExplanation"></div>
       <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Weiter →</button>
     </div>
   </div>
@@ -374,147 +162,82 @@
       <button class="restart-btn" onclick="restart()">↺ Nochmal versuchen</button>
     </div>
   </div>
-</div>
 
+</div>
 <script>
 const QUESTION_POOL = [
-  {
-    q: "Was bedeutet KI?",
-    options: ["Ein Roboter, der eigenständig laufen kann","Systeme, die menschliche Intelligenz wie Lernen und Problemlösen simulieren","Ein sehr schneller Computer ohne besondere Fähigkeiten","Eine neue Programmiersprache von Google"],
-    correct: 1,
-    explanation: "KI - Künstliche Intelligenz bezeichnet Computersysteme, die Aufgaben ausführen können, die normalerweise menschliche Intelligenz erfordern – z. B. Sprache verstehen, lernen, planen und Probleme lösen."
-  },
-  {
-    q: "Was ist der Microsoft Copilot Facilitator hauptsächlich?",
-    options: ["Ein Roboter, der Meetings physisch leitet","Ein KI-Agent in Microsoft Teams, der Notizen, Aufgaben und Zusammenfassungen automatisch erstellt","Ein E-Mail-Programm für Unternehmen","Ein Videobearbeitungstool"],
-    correct: 1,
-    explanation: "Der Copilot Facilitator ist ein KI-gestützter Agent in Microsoft Teams. Er erstellt automatisch Besprechungsnotizen, erfasst Aufgaben, generiert Zusammenfassungen und plant Follow-ups – sichtbar für alle Teilnehmer."
-  },
-  {
-    q: "Welche der folgenden Elemente gehören zur Grundstruktur eines guten Prompts?",
-    options: [
-      "Schriftart, Farbe, Größe und Seitenrand",
-      "Rolle, Aufgabe, Verhalten/Einschränkungen, Ausgabeformat und Beispiele (Few-Shot)",
-      "Datum, Uhrzeit, Ort und Teilnehmerliste",
-      "CPU-Leistung, RAM, Speicher und Netzwerkgeschwindigkeit"
-    ],
-    correct: 1,
-    explanation: "Ein guter Prompt besteht aus 5 Elementen: (1) Rolle & Kontext definieren, (2) Aufgabe klar beschreiben, (3) Verhalten & Einschränkungen festlegen, (4) Ausgabeformat vorgeben und (5) Beispiele geben (Few-Shot). Das sorgt für präzise, zuverlässige KI-Antworten."
-  },
-  {
-    q: "Was ist maschinelles Lernen (Machine Learning)?",
-    options: ["Das manuelle Programmieren von Regeln für einen Computer","Eine KI-Methode, bei der Systeme aus Daten lernen und sich verbessern, ohne explizit programmiert zu werden","Ein Computervirus, der sich selbst verbreitet","Eine Methode zur Datenverschlüsselung"],
-    correct: 1,
-    explanation: "Maschinelles Lernen ist ein Teilbereich der KI. Statt feste Regeln zu programmieren, lernt das System aus Beispieldaten und erkennt Muster, um eigenständig Vorhersagen oder Entscheidungen zu treffen."
-  },
-  {
-    q: "Was gilt beim Umgang mit KI-Systemen im Unternehmen?",
-    options: [
-      "Jede KI-Anwendung darf frei genutzt werden, solange sie kostenlos ist",
-      "Nur zugelassene KI-Systeme dürfen genutzt werden – vertrauliche Informationen sind zu schützen und eine unrechtmäßige Nutzung ist verboten",
-      "KI darf nur von der IT-Abteilung bedient werden",
-      "Vertrauliche Daten dürfen problemlos in externe KI-Tools eingegeben werden"
-    ],
-    correct: 1,
-    explanation: "Im Unternehmen gilt: Nur freigegebene KI-Systeme verwenden, keine vertraulichen oder personenbezogenen Daten in externe Tools eingeben und KI niemals für unrechtmäßige Zwecke nutzen. KI ist ein Werkzeug – die Verantwortung bleibt beim Menschen."
-  },
-  {
-    q: "Was ist ein Large Language Model (LLM)?",
-    options: ["Eine sehr große Festplatte für Textspeicherung","Ein KI-Modell, das auf riesigen Textmengen trainiert wurde und menschliche Sprache verstehen und generieren kann","Ein Übersetzungsprogramm der EU","Ein Netzwerk aus mehreren Computern"],
-    correct: 1,
-    explanation: "LLMs wie GPT-4 oder Claude sind auf Milliarden von Texten trainiert. Sie können Sprache verstehen, Texte schreiben, Fragen beantworten und Inhalte zusammenfassen – die Basis moderner KI-Assistenten."
-  },
-  {
-    q: "Welche Aufgabe übernimmt der Copilot Facilitator beim Zeitmanagement im Meeting?",
-    options: ["Er bucht automatisch einen neuen Termin","Er startet einen Countdown-Timer und benachrichtigt, wenn die Besprechungszeit überschritten wird","Er beendet das Meeting nach 30 Minuten automatisch","Er sendet eine Kalendereinladung an alle"],
-    correct: 1,
-    explanation: "Der Facilitator verwaltet aktiv die Zeit: Er startet einen Countdown-Timer für alle Meeting-Teilnehmer und gibt eine Benachrichtigung aus, wenn die geplante Besprechungszeit überschritten wird."
-  },
-  {
-    q: "Wofür steht das Kürzel 'KI'?",
-    options: ["Kreative Integration","Künstliche Intelligenz","Komplexe Informatik","Kontrollierte Information"],
-    correct: 1,
-    explanation: "KI steht für Künstliche Intelligenz – auf Englisch Artificial Intelligence (AI). Es beschreibt Computersysteme, die intelligentes Verhalten imitieren können."
-  },
-  {
-    q: "Was versteht man unter einem 'Prompt' im Kontext von KI?",
-    options: ["Eine Fehlermeldung des Computers","Eine Anweisung oder Eingabe, die man einer KI gibt, um eine Antwort zu erhalten","Ein spezieller KI-Prozessor","Ein Passwort für KI-Systeme"],
-    correct: 1,
-    explanation: "Ein Prompt ist die Eingabe oder Anweisung, die man einer KI wie ChatGPT oder Claude gibt. Je klarer und präziser der Prompt, desto besser die Antwort der KI."
-  },
-  {
-    q: "Was kann eine KI wie ChatGPT oder Claude NICHT zuverlässig leisten?",
-    options: [
-      "Texte zusammenfassen und übersetzen",
-      "Code schreiben und erklären",
-      "Eigenständig rechtlich verbindliche Entscheidungen treffen und dafür haften",
-      "Ideen für Präsentationen vorschlagen"
-    ],
-    correct: 2,
-    explanation: "KI kann viele Aufgaben unterstützen – Texte schreiben, Code generieren, Ideen liefern. Was sie nicht kann: rechtlich verbindlich entscheiden oder Verantwortung übernehmen. KI kann auch halluzinieren (falsche Infos liefern) und braucht immer menschliche Kontrolle."
-  },
-  {
-    q: "Was ist 'Generative KI'?",
-    options: ["KI, die nur Zahlen berechnet","KI, die neue Inhalte wie Texte, Bilder oder Code erzeugen kann","KI, die ausschließlich Musik komponiert","KI, die Maschinen in der Fabrik steuert"],
-    correct: 1,
-    explanation: "Generative KI kann eigenständig neue Inhalte erstellen – Texte, Bilder, Code, Musik und mehr. Bekannte Beispiele sind ChatGPT (Texte), DALL·E (Bilder) oder GitHub Copilot (Code)."
-  },
-  {
-    q: "Was passiert, wenn man den Copilot Facilitator per @mention im Meeting-Chat anspricht?",
-    options: ["Er verlässt das Meeting","Er erstellt eine neue Kalendereinladung","Man kann ihm direkt Aufgaben geben, Dokumente anfordern oder Informationen abfragen","Er stummt alle Teilnehmer"],
-    correct: 2,
-    explanation: "Durch @mention kann man den Facilitator direkt im Chat ansprechen – z. B. um Aufgaben zu erstellen, Word- oder Loop-Dokumente zu einem Thema zu generieren oder Informationen aus dem Meeting abzufragen."
-  },
-  {
-    q: "Was bedeutet 'Halluzination' bei einer KI?",
-    options: ["Die KI träumt während des Betriebs","Die KI gibt selbstbewusst falsche oder erfundene Informationen aus","Die KI zeigt bunte Bilder an","Die KI wird zu langsam und friert ein"],
-    correct: 1,
-    explanation: "Wenn eine KI 'halluziniert', erfindet sie Informationen, die klingen als wären sie wahr – aber es sind faktisch falsche Antworten. Deshalb sollte man KI-Ausgaben immer kritisch prüfen."
-  },
-  {
-    q: "Was ist der Unterschied zwischen schwacher KI und starker KI?",
-    options: ["Starke KI hat mehr Speicher als schwache KI","Schwache KI ist auf eine spezifische Aufgabe spezialisiert; starke KI könnte alle menschlichen Aufgaben erfüllen","Starke KI ist schneller, aber weniger genau","Es gibt keinen Unterschied"],
-    correct: 1,
-    explanation: "Schwache KI (auch 'Narrow AI') kann nur bestimmte Aufgaben erledigen – z. B. Schach spielen oder Sprache übersetzen. Starke KI (auch 'AGI') wäre in der Lage, jede intellektuelle Aufgabe wie ein Mensch zu lösen – sie existiert bislang nicht."
-  },
-  {
-    q: "Was ist Rovo und was kann sie?",
-    options: [
-      "Ein KI-gestützter Assistent von Atlassian, der Wissen aus Tools wie Jira, Confluence und Google Drive durchsucht, zusammenfasst und eigenständige Aufgaben übernehmen kann",
-      "Ein neues Videokonferenz-Tool von Atlassian als Konkurrenz zu Teams",
-      "Ein automatisches Backup-System für Atlassian-Daten",
-      "Ein Projektmanagement-Tool ohne KI-Funktionen"
-    ],
-    correct: 0,
-    explanation: "Atlassian Rovo ist ein KI-Assistent, der Unternehmenswissen aus verbundenen Tools (Jira, Confluence, Google Drive, etc.) durchsucht und nutzbar macht. Rovo kann Fragen beantworten, Inhalte zusammenfassen und als KI-Agent eigenständig Aufgaben in Atlassian-Tools ausführen."
-  },
-  {
-    q: "Was bedeutet 'KI-Ethik'?",
-    options: ["Die Entwicklung von KI ohne Strom","Die Auseinandersetzung mit moralischen Fragen rund um den Einsatz von KI – z. B. Fairness, Datenschutz und Transparenz","Ein Regelwerk für Roboter im Sport","Die Geschwindigkeit, mit der KI Antworten gibt"],
-    correct: 1,
-    explanation: "KI-Ethik beschäftigt sich mit den moralischen und gesellschaftlichen Fragen, die durch KI entstehen: Wie fair sind Algorithmen? Wer haftet für KI-Entscheidungen? Wie schützen wir Privatsphäre? Das sind zentrale Fragen unserer Zeit."
-  }
+  { q: "Was bedeutet KI?", options: ["Ein Roboter, der eigenständig laufen kann","Systeme, die menschliche Intelligenz wie Lernen und Problemlösen simulieren","Ein sehr schneller Computer ohne besondere Fähigkeiten","Eine neue Programmiersprache von Google"], correct: 1, explanation: "KI - Künstliche Intelligenz bezeichnet Computersysteme, die Aufgaben ausführen können, die normalerweise menschliche Intelligenz erfordern – z. B. Sprache verstehen, lernen, planen und Probleme lösen.", simple: "KI ist ein Computerprogramm, das aus Beispielen lernt und dabei klug wirkt." },
+  { q: "Was ist der Microsoft Copilot Facilitator hauptsächlich?", options: ["Ein Roboter, der Meetings physisch leitet","Ein KI-Agent in Microsoft Teams, der Notizen, Aufgaben und Zusammenfassungen automatisch erstellt","Ein E-Mail-Programm für Unternehmen","Ein Videobearbeitungstool"], correct: 1, explanation: "Der Copilot Facilitator ist ein KI-gestützter Agent in Microsoft Teams. Er erstellt automatisch Besprechungsnotizen, erfasst Aufgaben, generiert Zusammenfassungen und plant Follow-ups – sichtbar für alle Teilnehmer.", simple: "Copilot Facilitator = KI-Helfer in Teams, der automatisch Meeting-Notizen und Aufgaben festhält." },
+  { q: "Welche der folgenden Elemente gehören zur Grundstruktur eines guten Prompts?", options: ["Schriftart, Farbe, Größe und Seitenrand","Rolle, Aufgabe, Verhalten/Einschränkungen, Ausgabeformat und Beispiele (Few-Shot)","Datum, Uhrzeit, Ort und Teilnehmerliste","CPU-Leistung, RAM, Speicher und Netzwerkgeschwindigkeit"], correct: 1, explanation: "Ein guter Prompt besteht aus 5 Elementen: (1) Rolle & Kontext, (2) Aufgabe, (3) Verhalten & Einschränkungen, (4) Ausgabeformat und (5) Beispiele. Das sorgt für präzise KI-Antworten.", simple: "Guter Prompt = Wer bist du + Was willst du + Wie soll die Antwort aussehen + Beispiele." },
+  { q: "Was ist maschinelles Lernen (Machine Learning)?", options: ["Das manuelle Programmieren von Regeln für einen Computer","Eine KI-Methode, bei der Systeme aus Daten lernen und sich verbessern, ohne explizit programmiert zu werden","Ein Computervirus, der sich selbst verbreitet","Eine Methode zur Datenverschlüsselung"], correct: 1, explanation: "Maschinelles Lernen ist ein Teilbereich der KI. Statt feste Regeln zu programmieren, lernt das System aus Beispieldaten und erkennt Muster, um eigenständig Vorhersagen zu treffen.", simple: "Machine Learning = Computer lernt aus vielen Beispielen, ohne dass man ihm jede Regel einprogrammiert." },
+  { q: "Was gilt beim Umgang mit KI-Systemen im Unternehmen?", options: ["Jede KI-Anwendung darf frei genutzt werden, solange sie kostenlos ist","Nur zugelassene KI-Systeme dürfen genutzt werden – vertrauliche Informationen sind zu schützen und eine unrechtmäßige Nutzung ist verboten","KI darf nur von der IT-Abteilung bedient werden","Vertrauliche Daten dürfen problemlos in externe KI-Tools eingegeben werden"], correct: 1, explanation: "Im Unternehmen gilt: Nur freigegebene KI-Systeme verwenden, keine vertraulichen Daten in externe Tools eingeben und KI niemals für unrechtmäßige Zwecke nutzen.", simple: "Regel: Nur freigegebene KI nutzen, keine geheimen Infos eingeben, Verantwortung bleibt beim Menschen." },
+  { q: "Was ist ein Large Language Model (LLM)?", options: ["Eine sehr große Festplatte für Textspeicherung","Ein KI-Modell, das auf riesigen Textmengen trainiert wurde und menschliche Sprache verstehen und generieren kann","Ein Übersetzungsprogramm der EU","Ein Netzwerk aus mehreren Computern"], correct: 1, explanation: "LLMs wie GPT-4 oder Claude sind auf Milliarden von Texten trainiert. Sie können Sprache verstehen, Texte schreiben, Fragen beantworten und Inhalte zusammenfassen.", simple: "LLM = KI, die Milliarden Texte gelesen hat und dadurch Sprache versteht und schreiben kann." },
+  { q: "Welche Aufgabe übernimmt der Copilot Facilitator beim Zeitmanagement im Meeting?", options: ["Er bucht automatisch einen neuen Termin","Er startet einen Countdown-Timer und benachrichtigt, wenn die Besprechungszeit überschritten wird","Er beendet das Meeting nach 30 Minuten automatisch","Er sendet eine Kalendereinladung an alle"], correct: 1, explanation: "Der Facilitator verwaltet aktiv die Zeit: Er startet einen Countdown-Timer für alle Teilnehmer und gibt eine Benachrichtigung aus, wenn die geplante Zeit überschritten wird.", simple: "Facilitator startet einen Timer für alle im Meeting und sagt Bescheid, wenn die Zeit um ist." },
+  { q: "Wofür steht das Kürzel 'KI'?", options: ["Kreative Integration","Künstliche Intelligenz","Komplexe Informatik","Kontrollierte Information"], correct: 1, explanation: "KI steht für Künstliche Intelligenz – auf Englisch Artificial Intelligence (AI). Es beschreibt Computersysteme, die intelligentes Verhalten imitieren können.", simple: "KI = Künstliche Intelligenz. Auf Englisch: AI = Artificial Intelligence. Gleiches Konzept." },
+  { q: "Was versteht man unter einem 'Prompt' im Kontext von KI?", options: ["Eine Fehlermeldung des Computers","Eine Anweisung oder Eingabe, die man einer KI gibt, um eine Antwort zu erhalten","Ein spezieller KI-Prozessor","Ein Passwort für KI-Systeme"], correct: 1, explanation: "Ein Prompt ist die Eingabe oder Anweisung, die man einer KI wie ChatGPT oder Claude gibt. Je klarer und präziser der Prompt, desto besser die Antwort der KI.", simple: "Prompt = deine Frage oder Aufgabe an die KI. Klarer Prompt → bessere Antwort." },
+  { q: "Was kann eine KI wie ChatGPT oder Claude NICHT zuverlässig leisten?", options: ["Texte zusammenfassen und übersetzen","Code schreiben und erklären","Eigenständig rechtlich verbindliche Entscheidungen treffen und dafür haften","Ideen für Präsentationen vorschlagen"], correct: 2, explanation: "KI kann viele Aufgaben unterstützen. Was sie nicht kann: rechtlich verbindlich entscheiden oder Verantwortung übernehmen. KI kann halluzinieren und braucht immer menschliche Kontrolle.", simple: "KI kann keine Verantwortung übernehmen und für Fehler haften. Das bleibt beim Menschen." },
+  { q: "Was ist 'Generative KI'?", options: ["KI, die nur Zahlen berechnet","KI, die neue Inhalte wie Texte, Bilder oder Code erzeugen kann","KI, die ausschließlich Musik komponiert","KI, die Maschinen in der Fabrik steuert"], correct: 1, explanation: "Generative KI kann eigenständig neue Inhalte erstellen – Texte, Bilder, Code, Musik und mehr. Bekannte Beispiele sind ChatGPT (Texte), DALL·E (Bilder) oder GitHub Copilot (Code).", simple: "Generative KI erschafft neue Inhalte: Texte, Bilder, Code – statt nur zu analysieren." },
+  { q: "Was passiert, wenn man den Copilot Facilitator per @mention im Meeting-Chat anspricht?", options: ["Er verlässt das Meeting","Er erstellt eine neue Kalendereinladung","Man kann ihm direkt Aufgaben geben, Dokumente anfordern oder Informationen abfragen","Er stummt alle Teilnehmer"], correct: 2, explanation: "Durch @mention kann man den Facilitator direkt im Chat ansprechen – z. B. um Aufgaben zu erstellen, Dokumente zu generieren oder Informationen aus dem Meeting abzufragen.", simple: "@Facilitator im Chat = du kannst dem KI-Bot direkt Aufgaben geben oder Dokumente anfordern." },
+  { q: "Was bedeutet 'Halluzination' bei einer KI?", options: ["Die KI träumt während des Betriebs","Die KI gibt selbstbewusst falsche oder erfundene Informationen aus","Die KI zeigt bunte Bilder an","Die KI wird zu langsam und friert ein"], correct: 1, explanation: "Wenn eine KI 'halluziniert', erfindet sie Informationen, die klingen als wären sie wahr – aber es sind faktisch falsche Antworten. Deshalb sollte man KI-Ausgaben immer kritisch prüfen.", simple: "Halluzination = KI erfindet Antworten, die überzeugend klingen aber einfach falsch sind." },
+  { q: "Was ist der Unterschied zwischen schwacher KI und starker KI?", options: ["Starke KI hat mehr Speicher als schwache KI","Schwache KI ist auf eine spezifische Aufgabe spezialisiert; starke KI könnte alle menschlichen Aufgaben erfüllen","Starke KI ist schneller, aber weniger genau","Es gibt keinen Unterschied"], correct: 1, explanation: "Schwache KI ('Narrow AI') kann nur bestimmte Aufgaben erledigen. Starke KI ('AGI') wäre in der Lage, jede intellektuelle Aufgabe wie ein Mensch zu lösen – sie existiert bislang nicht.", simple: "Heutige KI = schwach (nur eine Sache). Starke KI = kann alles wie ein Mensch (noch nicht existent)." },
+  { q: "Was ist Rovo und was kann sie?", options: ["Ein KI-gestützter Assistent von Atlassian, der Wissen aus Tools wie Jira, Confluence und Google Drive durchsucht, zusammenfasst und eigenständige Aufgaben übernehmen kann","Ein neues Videokonferenz-Tool von Atlassian als Konkurrenz zu Teams","Ein automatisches Backup-System für Atlassian-Daten","Ein Projektmanagement-Tool ohne KI-Funktionen"], correct: 0, explanation: "Atlassian Rovo ist ein KI-Assistent, der Unternehmenswissen aus verbundenen Tools (Jira, Confluence, Google Drive, etc.) durchsucht und nutzbar macht. Rovo kann Fragen beantworten und als KI-Agent Aufgaben ausführen.", simple: "Rovo = KI-Assistent von Atlassian, der durch alle deine Firmen-Tools (Jira, Confluence, Drive) sucht." },
+  { q: "Was bedeutet 'KI-Ethik'?", options: ["Die Entwicklung von KI ohne Strom","Die Auseinandersetzung mit moralischen Fragen rund um den Einsatz von KI – z. B. Fairness, Datenschutz und Transparenz","Ein Regelwerk für Roboter im Sport","Die Geschwindigkeit, mit der KI Antworten gibt"], correct: 1, explanation: "KI-Ethik beschäftigt sich mit den moralischen und gesellschaftlichen Fragen, die durch KI entstehen: Wie fair sind Algorithmen? Wer haftet für KI-Entscheidungen? Wie schützen wir Privatsphäre?", simple: "KI-Ethik fragt: Ist das fair? Schützt das Privatsphäre? Wer ist verantwortlich, wenn KI Fehler macht?" },
 ];
 
 const QUESTIONS_PER_ROUND = 5;
+const TIMER_SECONDS = 20;
 
 function shuffle(arr) {
   const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
   return a;
 }
 
-let questions, current, score, answered;
+let questions, current, score, answered, streak, timerInterval, timerPct;
 const letters = ['A', 'B', 'C', 'D'];
 
 function initRound() {
   questions = shuffle(QUESTION_POOL).slice(0, QUESTIONS_PER_ROUND);
-  current = 0;
-  score = 0;
-  answered = false;
+  current = 0; score = 0; streak = 0; answered = false;
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerPct = 100;
+  updateTimerBar();
+  const step = 100 / (TIMER_SECONDS * 5); // update every 200ms
+  timerInterval = setInterval(() => {
+    timerPct -= step;
+    updateTimerBar();
+    if (timerPct <= 0) { clearInterval(timerInterval); autoTimeout(); }
+  }, 200);
+}
+
+function updateTimerBar() {
+  const bar = document.getElementById('timerBar');
+  bar.style.width = Math.max(0, timerPct) + '%';
+  if (timerPct > 50) bar.style.background = 'linear-gradient(90deg, var(--accent), var(--accent-dark))';
+  else if (timerPct > 25) bar.style.background = 'linear-gradient(90deg, #F5A623, #E8891C)';
+  else bar.style.background = 'linear-gradient(90deg, #e0392d, #c0291d)';
+}
+
+function autoTimeout() {
+  if (answered) return;
+  answered = true; streak = 0; updateStreak();
+  const q = questions[current];
+  document.querySelectorAll('.option').forEach((btn, i) => { btn.disabled = true; if (i === q.correct) btn.classList.add('correct'); });
+  const exp = document.getElementById('explanation');
+  exp.innerHTML = `<strong>⏰ Zeit abgelaufen!</strong> ${q.explanation}`;
+  exp.className = 'explanation show';
+  document.getElementById('simpleBtn').className = 'simple-btn show';
+  document.getElementById('simpleExplanation').textContent = '💡 ' + q.simple;
+  document.getElementById('nextBtn').className = 'next-btn show';
+}
+
+function updateStreak() {
+  const badge = document.getElementById('streakBadge');
+  if (streak >= 2) { badge.textContent = '🔥 ' + streak + ' in Folge'; badge.style.display = 'inline-block'; }
+  else badge.style.display = 'none';
 }
 
 function loadQuestion() {
@@ -537,34 +260,45 @@ function loadQuestion() {
   });
 
   document.getElementById('explanation').className = 'explanation';
+  document.getElementById('simpleBtn').className = 'simple-btn';
+  document.getElementById('simpleExplanation').className = 'simple-explanation';
   document.getElementById('nextBtn').className = 'next-btn';
 
   const card = document.getElementById('quizCard');
   card.style.animation = 'none';
   requestAnimationFrame(() => { card.style.animation = 'fadeUp 0.4s ease both'; });
+
+  startTimer();
 }
 
 function selectAnswer(selected) {
   if (answered) return;
   answered = true;
+  clearInterval(timerInterval);
 
   const q = questions[current];
-  const options = document.querySelectorAll('.option');
-
-  options.forEach((btn, i) => {
+  document.querySelectorAll('.option').forEach((btn, i) => {
     btn.disabled = true;
     if (i === q.correct) btn.classList.add('correct');
     else if (i === selected) btn.classList.add('wrong');
   });
 
-  if (selected === q.correct) score++;
+  const correct = selected === q.correct;
+  if (correct) { score++; streak++; }
+  else { streak = 0; document.getElementById('simpleBtn').className = 'simple-btn show'; document.getElementById('simpleExplanation').textContent = '💡 ' + q.simple; }
+  updateStreak();
 
   const exp = document.getElementById('explanation');
-  exp.innerHTML = `<strong>${selected === q.correct ? '✓ Richtig!' : '✗ Leider falsch.'}</strong> ${q.explanation}`;
+  exp.innerHTML = `<strong>${correct ? '✓ Richtig!' : '✗ Leider falsch.'}</strong> ${q.explanation}`;
   exp.className = 'explanation show';
-
   document.getElementById('nextBtn').className = 'next-btn show';
   document.getElementById('scoreText').textContent = `${score} richtig`;
+}
+
+function showSimple() {
+  const el = document.getElementById('simpleExplanation');
+  el.className = 'simple-explanation show';
+  document.getElementById('simpleBtn').style.display = 'none';
 }
 
 function nextQuestion() {
@@ -574,14 +308,12 @@ function nextQuestion() {
 }
 
 function showResult() {
+  clearInterval(timerInterval);
   document.getElementById('quizArea').style.display = 'none';
   const result = document.getElementById('resultScreen');
   result.className = 'result-screen show';
-
   document.getElementById('scoreDisplay').textContent = `${score} / ${QUESTIONS_PER_ROUND}`;
   document.getElementById('progressBar').style.width = '100%';
-
-  // Always: You won – get your prize!
   document.getElementById('resultEmoji').textContent = '🍦';
   document.getElementById('resultTitle').textContent = 'Du hast gewonnen!';
   document.getElementById('resultMsg').textContent = `${score} von ${QUESTIONS_PER_ROUND} Fragen richtig – hol dir deinen Preis aus der Eisruhe vorne vor der Kombüse! 🎉`;

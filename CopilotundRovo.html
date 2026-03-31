@@ -101,6 +101,25 @@
     .two-col, .gems { grid-template-columns: 1fr; }
     .cap-table thead th:last-child, .cap-table tbody td:last-child { display: none; }
   }
+
+
+  /* ── SCENARIO PICKER ── */
+  .scenarios { display: flex; flex-direction: column; gap: 10px; margin-bottom: 2rem; }
+  .scenario { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; }
+  .scenario-q { font-size: 13.5px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
+  .scenario-btns { display: flex; gap: 8px; }
+  .sc-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: var(--sans); cursor: pointer; border: 1.5px solid; transition: all .18s; }
+  .sc-btn.rovo  { background: var(--blue-bg);  border-color: var(--blue-border);  color: var(--blue-text); }
+  .sc-btn.rovo:hover  { background: var(--blue-text);  color: #fff; }
+  .sc-btn.copilot { background: var(--teal-bg); border-color: var(--teal-border); color: var(--teal-text); }
+  .sc-btn.copilot:hover { background: var(--teal-text); color: #fff; }
+  .sc-btn:disabled { opacity: .5; cursor: default; transform: none !important; }
+  .sc-btn.chosen-correct { background: var(--accent-light) !important; border-color: var(--accent) !important; color: var(--accent-dark) !important; }
+  .sc-btn.chosen-wrong { background: rgba(224,57,45,.1) !important; border-color: #e0392d !important; color: #b93232 !important; }
+  .scenario-feedback { margin-top: 8px; font-size: 12px; line-height: 1.5; color: var(--muted); display: none; padding: 7px 10px; border-radius: 6px; background: var(--accent-light); border: 1px solid var(--accent); animation: scFade .2s ease; }
+  .scenario-feedback.show { display: block; }
+  .scenario-feedback.wrong { background: rgba(224,57,45,.08); border-color: #e0392d; color: #b93232; }
+  @keyframes scFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
@@ -109,14 +128,14 @@
 <p class="subtitle">Was die Tools heute können. Klicke auf eine Karte für Details.</p>
 
 <!-- ── KNOWN FEATURES (accordion) ── -->
-<div class="section-label">Bekannte Funktionen — klicken für Details</div>
+<div class="section-label">Bekannte Funktionen — klicken für Inhalte</div>
 <div class="cards">
 
   <div class="card" id="c0">
     <div class="card-header" onclick="tog('c0')">
       <div class="card-icon">🔍</div>
       <div class="card-title">
-        <h3>Enterprise Search</h3>
+        <h3>Search</h3>
         <p>Findet Dokumente und Daten über alle verbundenen Tools</p>
         <div class="card-tags"><span class="tag blue">Rovo</span><span class="tag teal">Copilot</span></div>
       </div>
@@ -127,17 +146,17 @@
         <div class="d-card">
           <div class="d-label">Atlassian Rovo</div>
           <ul>
-            <li>Sucht in Jira, Confluence, Google Drive, SharePoint</li>
+            <li>Sucht in Jira & Confluence</li>
             <li>Versteht Beziehungen zwischen Personen, Projekten, Zielen (Teamwork Graph)</li>
-            <li>Unterstreicht Fachjargon und Abkürzungen mit Inline-Definitionen</li>
-            <li>Findet auch implizit verknüpfte Inhalte, nicht nur Keywords</li>
+            <li>Unterstreicht Fachsprache und Abkürzungen mit Definitionen</li>
+            <li>Findet auch verknüpfte Inhalte, nicht nur Keywords</li>
           </ul>
         </div>
         <div class="d-card">
           <div class="d-label">Microsoft Copilot</div>
           <ul>
             <li>Sucht in M365: SharePoint, Teams, Outlook, OneDrive</li>
-            <li>Basiert in Microsoft Graph – kennt Berechtigungen der Nutzer</li>
+            <li>Kennt Berechtigungen der Nutzer</li>
             <li>Kann natürlichsprachliche Fragen über eigene Dateien beantworten</li>
             <li>Zeigt Quellen und Verweise direkt in der Antwort</li>
           </ul>
@@ -164,17 +183,17 @@
           <ul>
             <li>Beantwortet Fragen mit Unternehmenskontext</li>
             <li>Kann direkt aus dem Chat Jira-Tickets erstellen oder aktualisieren</li>
-            <li>Arbeit auf Jira-Tickets direkt loggen</li>
+            <li>Arbeit auf Jira-Tickets direkt schreiben</li>
             <li>Erinnert sich an persönliche Formatierungseinstellungen</li>
           </ul>
         </div>
         <div class="d-card">
-          <div class="d-label">Microsoft Copilot Chat</div>
+          <div class="d-label">Copilot Chat</div>
           <ul>
             <li>Beantwortet Fragen auf Basis von M365-Daten und Websuche</li>
             <li>Kann in Teams, Outlook und dem Browser genutzt werden</li>
             <li>Erstellt Zusammenfassungen vergangener Meetings "Facilitator"</li>
-            <li>Schlägt nächste Schritte aus E-Mail-Threads vor</li>
+            <li>Schlägt nächste Schritte aus E-Mail-Verläufe vor</li>
           </ul>
         </div>
       </div>
@@ -199,15 +218,14 @@
           <ul>
             <li>Backlog nach Themen gruppieren oder veraltete Tickets bereinigen</li>
             <li>Release Notes aus Jira-Tasks in Confluence schreiben</li>
-            <li>Onboarding-Fragen rund um die Uhr beantworten, also nicht so komplex</li>
+            <li>Fragen rund um die Uhr beantworten, solange es irgendwo geschrieben ist</li>
             <li>In Jira zugewiesen und in Kommentaren @erwähnt werden</li>
           </ul>
         </div>
         <div class="d-card">
           <div class="d-label">Copilot Agenten — was sie tun</div>
           <ul>
-            <li>Wöchentliche Statusberichte automatisch entwerfen (sehe unsere PRIOMD-Health checker)</li>
-            <li>Mehrstufige Aufgaben über Apps hinweg ausführen</li>
+            <li>Wöchentliche Statusberichte automatisch entwerfen (sehe unsere eigene PRIOMD-Health checker)</li>
             <li>Pause einlegen und Mensch um Freigabe bitten (Human-in-the-loop)</li>
             <li>In natürlicher Sprache erstellt – kein Code nötig</li>
           </ul>
@@ -221,7 +239,7 @@
     <div class="card-header" onclick="tog('c3')">
       <div class="card-icon">📝</div>
       <div class="card-title">
-        <h3>Zusammenfassung &amp; Drafting</h3>
+        <h3>Zusammenfassung &amp; Entwürfe</h3>
         <p>Lange Inhalte zusammenfassen, erste Entwürfe generieren</p>
         <div class="card-tags"><span class="tag blue">Rovo</span><span class="tag teal">Copilot</span></div>
       </div>
@@ -330,9 +348,13 @@
   </div>
 </div>
 
+<!-- ── SCENARIO PICKER ── -->
+<div class="section-label">Welches Tool würdest du nutzen?</div>
+<div class="scenarios" id="scenarioList"></div>
+
 <div class="footer">
-  <span>freenet KI · Rovo &amp; Copilot Übersicht</span>
-  <span>März 2026</span>
+  <span>freenet KI · Rovo &amp; Copilot </span>
+  <span>April 2026</span>
 </div>
 
 <script>
@@ -341,6 +363,47 @@
     const isOpen = c.classList.contains('open');
     document.querySelectorAll('.card').forEach(x => x.classList.remove('open'));
     if (!isOpen) c.classList.add('open');
+  }
+
+  // ── Scenario Picker ──
+  const SCENARIOS = [
+    { q: 'Du willst wissen, wer in deiner Firma an einem bestimmten Projekt arbeitet.', answer: 'rovo', hint: 'Rovo versteht den "Teamwork Graph" – Beziehungen zwischen Personen, Projekten und Zielen.' },
+    { q: 'Du willst eine lange E-Mail zusammenfassen und eine Antwort vorschlagen lassen.', answer: 'copilot', hint: 'Copilot ist direkt in Outlook integriert und macht genau das.' },
+    { q: 'Du willst veraltete Jira-Tickets automatisch bereinigen und gruppieren.', answer: 'rovo', hint: 'Rovo Agenten können Backlogs nach Themen gruppieren oder veraltete Tickets bereinigen.' },
+    { q: 'Du willst eine PowerPoint-Präsentation aus deinen Stichpunkten erstellen.', answer: 'copilot', hint: 'Copilot in PowerPoint erstellt Folien direkt aus Text – ein klassischer Stärkebereich.' },
+    { q: 'Du willst im Confluence-Wiki nach einer firmeninternen Abkürzung suchen.', answer: 'rovo', hint: 'Rovo unterstreicht Fachjargon und Abkürzungen mit Inline-Definitionen aus euren eigenen Quellen.' },
+    { q: 'Du willst deine Excel-Daten erklären und kommentieren lassen.', answer: 'copilot', hint: 'Copilot in Excel kann Tabellen analysieren, erklären und kommentieren.' },
+  ];
+
+  const list = document.getElementById('scenarioList');
+  SCENARIOS.forEach((sc, i) => {
+    const el = document.createElement('div');
+    el.className = 'scenario';
+    el.id = 'sc' + i;
+    el.innerHTML = `
+      <div class="scenario-q">${i + 1}. ${sc.q}</div>
+      <div class="scenario-btns">
+        <button class="sc-btn rovo"    onclick="scAnswer(${i},'rovo')">Rovo</button>
+        <button class="sc-btn copilot" onclick="scAnswer(${i},'copilot')">Copilot</button>
+      </div>
+      <div class="scenario-feedback" id="scfb${i}"></div>
+    `;
+    list.appendChild(el);
+  });
+
+  function scAnswer(i, choice) {
+    const sc = SCENARIOS[i];
+    const el = document.getElementById('sc' + i);
+    const fb = document.getElementById('scfb' + i);
+    const btns = el.querySelectorAll('.sc-btn');
+    btns.forEach(b => { b.disabled = true; });
+
+    const correct = choice === sc.answer;
+    const chosenBtn = el.querySelector('.sc-btn.' + choice);
+    chosenBtn.classList.add(correct ? 'chosen-correct' : 'chosen-wrong');
+
+    fb.className = 'scenario-feedback show' + (correct ? '' : ' wrong');
+    fb.textContent = (correct ? '✓ Richtig! ' : '✗ ' + (choice === 'rovo' ? 'Copilot' : 'Rovo') + ' wäre hier besser. ') + sc.hint;
   }
 </script>
 </body>
