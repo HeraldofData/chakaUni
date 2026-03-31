@@ -4,15 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rovo & Copilot – Übersicht</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F5F4F1;
-    --surface: #FFFFFF;
-    --border: #E0DED8;
-    --text: #1A1A1A;
-    --muted: #6B6860;
-    --sans: 'IBM Plex Sans', sans-serif;
+    --bg: #f4f5f2;
+    --surface: #ffffff;
+    --border: #d3d8cc;
+    --text: #1a1f12;
+    --muted: #6b7260;
+    --accent: #84BC34;
+    --accent-dark: #6a9828;
+    --accent-light: #edf6d9;
+    --sans: 'DM Sans', sans-serif;
     --mono: 'IBM Plex Mono', monospace;
     --blue-bg: #EBF3FF; --blue-text: #0C447C; --blue-border: #B8D4F7;
     --teal-bg: #E5F5EF; --teal-text: #005E3C; --teal-border: #9FD9C0;
@@ -30,7 +33,7 @@
 
   /* ── CAPABILITIES TABLE ── */
   .cap-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; font-size: 13px; }
-  .cap-table thead tr { border-bottom: 2px solid var(--text); }
+  .cap-table thead tr { border-bottom: 2px solid var(--accent); }
   .cap-table th { font-weight: 600; padding: 8px 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
   .cap-table th:first-child { width: 30%; }
   .cap-table tbody tr { border-bottom: 1px solid var(--border); }
@@ -43,13 +46,13 @@
   .section-label {
     font-family: var(--mono); font-size: 10px; text-transform: uppercase;
     letter-spacing: .12em; color: var(--muted); margin-bottom: .8rem;
-    padding-bottom: 5px; border-bottom: 1px solid var(--border);
+    padding-bottom: 5px; border-bottom: 1px solid var(--accent);
   }
 
   /* ── FEATURE CARDS (accordion) ── */
   .cards { margin-bottom: 2rem; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px; overflow: hidden; transition: box-shadow .15s; }
-  .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .card:hover { box-shadow: 0 2px 8px rgba(132,188,52,.15); }
   .card-header { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; cursor: pointer; user-select: none; }
   .card-icon { display: flex; align-items: center; justify-content: center; height: 56px; font-size: 18px; border-right: 1px solid var(--border); }
   .card-title { padding: .7rem 1rem; }
@@ -62,11 +65,11 @@
   .card.open .card-body { display: block; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .d-card { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: .9rem 1rem; }
-  .d-card .d-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 7px; }
+  .d-card .d-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent-dark); margin-bottom: 7px; }
   .d-card ul { list-style: none; }
   .d-card ul li { font-size: 12.5px; color: var(--text); line-height: 1.65; padding-left: 12px; position: relative; }
   .d-card ul li::before { content: "→"; position: absolute; left: 0; color: var(--muted); font-size: 10px; top: 3px; }
-  .note { margin-top: .8rem; font-size: 12px; padding: .7rem .9rem; border-left: 3px solid var(--border); background: var(--surface); border-radius: 0 5px 5px 0; color: var(--muted); }
+  .note { margin-top: .8rem; font-size: 12px; padding: .7rem .9rem; border-left: 3px solid var(--accent); background: var(--accent-light); border-radius: 0 5px 5px 0; color: var(--muted); }
 
   /* pill tags */
   .tag { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; border: 1px solid; letter-spacing: .02em; white-space: nowrap; }
@@ -322,7 +325,7 @@
           </ul>
         </div>
       </div>
-      <div class="note" style="border-left-color:#B05800;">Grundregel: KI verstärkt was vorhanden ist. Prozesse werden schneller - oder scheitern schneller. Zuerst den Prozess definieren & klären.</div>
+      <div class="note">Grundregel: KI verstärkt was vorhanden ist. Prozesse werden schneller - oder scheitern schneller. Zuerst den Prozess definieren & klären.</div>
     </div>
   </div>
 </div>

@@ -9,14 +9,15 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:       #f0ede8;
-    --surface:  #e8e4de;
-    --border:   #d8d3cb;
-    --text:     #1a1917;
-    --muted:    #6b6760;
-    --accent:   #2b5cff;
-    --radius:   14px;
-    --font:     'DM Sans', sans-serif;
+    --bg:          #f4f5f2;
+    --surface:     #eaebe7;
+    --border:      #d3d8cc;
+    --text:        #1a1f12;
+    --muted:       #6b7260;
+    --accent:      #84BC34;
+    --accent-dark: #6a9828;
+    --radius:      14px;
+    --font:        'DM Sans', sans-serif;
   }
 
   body {
@@ -59,12 +60,12 @@
   .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0,0,0,.08);
-    border-color: #bbb6ae;
+    border-color: #b8c4ad;
   }
 
   .card.active {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(43,92,255,.15);
+    box-shadow: 0 0 0 3px rgba(132,188,52,.18);
   }
 
   .card-icon {
@@ -127,7 +128,7 @@
   }
 
   .step:last-child { border-right: none; }
-  .step:hover { background: rgba(43,92,255,.04); }
+  .step:hover { background: rgba(132,188,52,.06); }
 
   .step-num {
     width: 40px;
@@ -182,7 +183,7 @@
     margin-bottom: 16px;
   }
 
-  .comp-box.yes h4 { color: #1a7a4a; }
+  .comp-box.yes h4 { color: var(--accent-dark); }
   .comp-box.no  h4 { color: #b93232; }
 
   .comp-list {
@@ -207,7 +208,7 @@
     margin-top: 1px;
   }
 
-  .comp-box.yes .comp-list li::before { content: "✓"; color: #1a7a4a; font-weight: 700; }
+  .comp-box.yes .comp-list li::before { content: "✓"; color: var(--accent-dark); font-weight: 700; }
   .comp-box.no  .comp-list li::before { content: "✗"; color: #b93232; font-weight: 700; }
 </style>
 </head>
